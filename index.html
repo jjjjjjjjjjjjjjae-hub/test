@@ -15,11 +15,7 @@
       overflow: hidden;
       background: #080a0f;
     }
-    body {
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
-    }
+    body { width: 100vw; height: 100vh; height: 100dvh; }
     model-viewer {
       display: block;
       width: 100%;
@@ -36,18 +32,32 @@
     src="./iPhone%20duo.glb"
     alt="iPhone Duo"
     camera-controls
+    disable-pan
     touch-action="pan-y"
     interaction-prompt="none"
     environment-image="neutral"
     exposure="1"
     shadow-intensity="1"
     shadow-softness="0.8"
-    camera-orbit="35deg 75deg 0.22m"
-    field-of-view="25deg"
-    min-camera-orbit="auto auto 0.12m"
-    max-camera-orbit="auto auto 0.8m"
-    interpolation-decay="100"
+    camera-orbit="35deg 75deg auto"
+    field-of-view="30deg"
+    interpolation-decay="180"
     loading="eager">
   </model-viewer>
+  <script>
+    const phone = document.getElementById('phone');
+
+    phone.addEventListener('load', () => {
+      // Use the actual center of the phone's geometry as the orbit point.
+      const center = phone.getBoundingBoxCenter();
+      phone.cameraTarget = center
+        ? center.x + 'm ' + center.y + 'm ' + center.z + 'm'
+        : 'auto auto auto';
+
+      // Frame the whole model, then rotate smoothly around its center.
+      phone.cameraOrbit = '35deg 75deg auto';
+      phone.jumpCameraToGoal();
+    }, { once: true });
+  </script>
 </body>
 </html>
