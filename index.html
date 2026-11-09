@@ -3,94 +3,51 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#090b10">
-  <title>iPhone Duo — 3D модель</title>
+  <meta name="theme-color" content="#080a0f">
+  <title>iPhone Duo</title>
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   <style>
-    :root { color-scheme: dark; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; background: #090b10; color: #f7f8fc; }
-    body { min-height: 100svh; display: flex; flex-direction: column; }
-    header { width: min(1100px, 100%); margin: 0 auto; padding: 22px 22px 8px; }
-    .eyebrow { color: #9299aa; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
-    h1 { margin: 8px 0 5px; font-size: clamp(27px, 5vw, 42px); letter-spacing: -.04em; }
-    .sub { color: #a7adbb; margin: 0; font-size: 14px; }
-    main { width: min(1100px, 100%); margin: 0 auto; padding: 12px 18px 28px; flex: 1; display: flex; flex-direction: column; }
-    .viewer-wrap { position: relative; flex: 1; min-height: 430px; height: min(68svh, 720px); border: 1px solid #252a36; border-radius: 24px; overflow: hidden; background: radial-gradient(ellipse at 50% 43%, #222938 0%, #111620 43%, #0c0f16 76%); }
-    model-viewer { display: block; width: 100%; height: 100%; min-height: 430px; --poster-color: transparent; outline: none; }
-    .controls { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; padding: 17px 0 7px; }
-    button { border: 1px solid #343b4a; background: #171c27; color: #fff; padding: 12px 18px; border-radius: 999px; font-size: 14px; cursor: pointer; }
-    button:hover { background: #242c3a; }
-    button:focus-visible { outline: 2px solid #9db8ff; outline-offset: 3px; }
-    .hint { text-align: center; color: #858d9d; font-size: 13px; margin: 8px 0 0; }
-    .loader { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: #c5cada; font-size: 13px; pointer-events: none; }
-    model-viewer[loaded] + .loader { display: none; }
-    .error { display: none; position: absolute; inset: auto 14px 14px; text-align: center; color: #ffb6b6; background: #351b21; border: 1px solid #71323d; border-radius: 12px; padding: 12px; font-size: 13px; }
-    @media (max-width: 600px) {
-      header { padding: 18px 17px 6px; }
-      main { padding: 10px 10px 20px; }
-      .viewer-wrap { min-height: 62svh; height: 62svh; border-radius: 18px; }
-      model-viewer { min-height: 62svh; }
-      button { padding: 11px 15px; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #080a0f;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+    }
+    model-viewer {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at 50% 48%, #202633 0%, #10141d 52%, #080a0f 100%);
+      --poster-color: transparent;
+      outline: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="eyebrow">3D модель</div>
-    <h1>iPhone Duo</h1>
-    <p class="sub">Телефонды айналдырып, барлық жағынан қарап көр.</p>
-  </header>
-  <main>
-    <section class="viewer-wrap" aria-label="iPhone Duo үш өлшемді моделі">
-      <model-viewer
-        id="phone"
-        src="./iPhone%20duo.glb"
-        alt="iPhone Duo телефонының 3D моделі"
-        camera-controls
-        touch-action="pan-y"
-        interaction-prompt="auto"
-        environment-image="neutral"
-        exposure="1"
-        shadow-intensity="1"
-        shadow-softness="0.8"
-        camera-orbit="35deg 75deg 2.8m"
-        min-camera-orbit="auto auto 0.5m"
-        max-camera-orbit="auto auto 8m"
-        interpolation-decay="120"
-        loading="eager">
-      </model-viewer>
-      <div class="loader" id="loader">3D модель жүктелуде…</div>
-      <div class="error" id="error">Модель жүктелмеді. Интернет байланысын тексеріп, бетті қайта аш.</div>
-    </section>
-    <div class="controls">
-      <button id="rotate" type="button">Айналдыруды қосу</button>
-      <button id="reset" type="button">Көріністі қалпына келтіру</button>
-    </div>
-    <p class="hint">Бұру: сүйре · Жақындату: екі саусақпен немесе дөңгелекпен масштабта</p>
-  </main>
-  <script>
-    const viewer = document.getElementById('phone');
-    const rotate = document.getElementById('rotate');
-    const reset = document.getElementById('reset');
-    const loader = document.getElementById('loader');
-    const error = document.getElementById('error');
-
-    viewer.addEventListener('load', () => { loader.style.display = 'none'; error.style.display = 'none'; });
-    viewer.addEventListener('error', () => { loader.style.display = 'none'; error.style.display = 'block'; });
-
-    rotate.addEventListener('click', () => {
-      const enabled = !viewer.hasAttribute('auto-rotate');
-      viewer.toggleAttribute('auto-rotate', enabled);
-      rotate.textContent = enabled ? 'Айналдыруды тоқтату' : 'Айналдыруды қосу';
-    });
-
-    reset.addEventListener('click', () => {
-      viewer.removeAttribute('auto-rotate');
-      rotate.textContent = 'Айналдыруды қосу';
-      viewer.cameraOrbit = '35deg 75deg 2.8m';
-      viewer.cameraTarget = 'auto auto auto';
-    });
-  </script>
+  <model-viewer
+    id="phone"
+    src="./iPhone%20duo.glb"
+    alt="iPhone Duo"
+    camera-controls
+    touch-action="pan-y"
+    interaction-prompt="none"
+    environment-image="neutral"
+    exposure="1"
+    shadow-intensity="1"
+    shadow-softness="0.8"
+    camera-orbit="35deg 75deg 0.22m"
+    field-of-view="25deg"
+    min-camera-orbit="auto auto 0.12m"
+    max-camera-orbit="auto auto 0.8m"
+    interpolation-decay="100"
+    loading="eager">
+  </model-viewer>
 </body>
 </html>
