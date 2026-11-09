@@ -1,63 +1,3795 @@
 <!doctype html>
 <html lang="kk">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#080a0f">
-  <title>iPhone Duo</title>
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
-  <style>
-    * { box-sizing: border-box; }
-    html, body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-      background: #080a0f;
-    }
-    body { width: 100vw; height: 100vh; height: 100dvh; }
-    model-viewer {
-      display: block;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(ellipse at 50% 48%, #202633 0%, #10141d 52%, #080a0f 100%);
-      --poster-color: transparent;
-      outline: none;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080f1b">
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/jjjjjjjjjjjjjjae-hub/QamqorPhone/main/QamqorPhone.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
+<meta name="description" content="QAMQOR PHONE — телефон жөндеу қызметіне онлайн өтінім қалдырыңыз. Жөндеу түрін таңдап, мекенжайды картадан белгілеңіз.">
+<title>QAMQOR PHONE — Телефон жөндеу</title>
+<style>
+
+:root{
+  color-scheme:dark;
+  --bg:#090a0d;
+  --surface:#17181c;
+  --surface-2:#1d1e23;
+  --surface-3:#23252b;
+  --line:#30323a;
+  --text:#f5f5f7;
+  --muted:#a1a1aa;
+  --blue:#0a84ff;
+  --blue-hover:#2997ff;
+  --green:#30d158;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at 50% -20%,rgba(10,132,255,.16),transparent 42rem),
+    radial-gradient(ellipse at 92% 26%,rgba(88,86,214,.09),transparent 34rem),
+    var(--bg);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",sans-serif;
+  letter-spacing:-.012em;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{width:min(1120px,calc(100% - 48px));margin:0 auto}
+header{
+  height:76px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;padding:0 4px;
+  border-bottom:1px solid rgba(255,255,255,.075);
+  background:rgba(10,10,12,.78);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  backdrop-filter:blur(24px) saturate(180%);
+}
+.brand{display:flex;align-items:center;gap:12px;color:var(--text);font-size:14px;font-weight:760;letter-spacing:.055em}
+.mark{width:44px;height:44px;flex:0 0 44px;overflow:hidden;border-radius:14px;background:#fff;border:1px solid rgba(255,255,255,.12);box-shadow:0 5px 18px #0006}
+.mark img{display:block;width:100%;height:100%;object-fit:contain;border-radius:inherit}
+.brand small{display:block;margin-top:4px;color:#85858e;font-size:8px;font-weight:650;letter-spacing:.2em}
+.header-right{display:flex;align-items:center;gap:20px}
+.topnote{color:#a1a1aa;font-size:12px}
+.hero-cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:12px;
+  min-height:44px;padding:12px 19px;border:0;border-radius:999px;
+  color:#fff;background:var(--blue);text-decoration:none;
+  font-size:13px;font-weight:680;letter-spacing:0;
+  box-shadow:0 7px 22px rgba(10,132,255,.19);
+  transition:background .2s,transform .2s,box-shadow .2s;
+}
+.hero-cta:hover{background:var(--blue-hover);transform:translateY(-1px);box-shadow:0 10px 28px rgba(10,132,255,.27)}
+.hero-cta span{font-size:17px;line-height:1}
+.hero{
+  display:grid;grid-template-columns:1fr;justify-items:center;text-align:center;
+  padding:76px 0 58px;gap:30px;
+}
+.hero>div:first-child{max-width:820px}
+.tag{display:inline-flex;align-items:center;gap:9px;color:#7dbbff;font-size:10px;font-weight:750;letter-spacing:.2em;text-transform:uppercase}
+.tag:before{content:"";width:16px;height:2px;border-radius:3px;background:var(--blue)}
+h1{
+  margin:19px 0 18px;color:#f5f5f7;
+  font-size:clamp(48px,7.6vw,82px);font-weight:760;
+  line-height:.99;letter-spacing:-.075em;
+}
+h1 span{color:#65adff;background:linear-gradient(100deg,#4aa1ff,#a4cfff 62%,#a89bff);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.lead{max-width:590px;margin:0 auto;color:#a1a1aa;font-size:16px;line-height:1.8}
+.hero-actions{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;margin-top:25px}
+.hero-cta{min-height:50px;padding:14px 23px;font-size:14px}
+.hero-note{display:inline-flex;align-items:center;gap:8px;color:#92929c;font-size:11px}
+.hero-note i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(48,209,88,.13)}
+.points{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin-top:25px}
+.point{
+  padding:9px 14px;border:1px solid #2c3038;border-radius:999px;
+  background:rgba(26,28,34,.72);color:#c9c9d0;font-size:11px;
+  box-shadow:inset 0 1px rgba(255,255,255,.035);
+  transition:border-color .2s,background .2s,transform .2s;
+}
+.point:hover{border-color:#426b98;background:#202a37;transform:translateY(-2px)}
+.art,.premium-art{
+  width:min(100%,790px);min-height:300px;position:relative;isolation:isolate;
+  display:grid;place-items:center;overflow:hidden;
+  border:1px solid rgba(255,255,255,.09);border-radius:34px;
+  background:
+    radial-gradient(ellipse at 50% 42%,rgba(45,117,204,.24),transparent 42%),
+    linear-gradient(145deg,#191d26,#111319 60%,#171523);
+  box-shadow:0 30px 85px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.07);
+}
+.art:before,.art:after{content:"";position:absolute;z-index:-1;border-radius:50%;filter:blur(45px);pointer-events:none}
+.art:before{width:260px;height:260px;top:-150px;right:5%;background:#1768b9;opacity:.35}
+.art:after{width:240px;height:240px;bottom:-170px;left:9%;background:#5143a8;opacity:.2}
+.art-glow{position:absolute;inset:15%;border-radius:50%;background:radial-gradient(circle,rgba(68,145,255,.17),transparent 65%);filter:blur(18px)}
+.device{
+  width:142px;height:238px;position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;border:6px solid #4a4d56;border-radius:33px;
+  background:linear-gradient(155deg,#f7fbff 0%,#dbe9fa 52%,#bcd5f4 100%);
+  box-shadow:0 27px 65px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.85);
+  transform:rotate(-5deg);
+  animation:phoneFloat 6s ease-in-out infinite;
+}
+.device:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.58) 48%,transparent 64%);pointer-events:none}
+.device-camera{position:absolute;z-index:2;top:8px;left:50%;width:48px;height:13px;transform:translateX(-50%);border-radius:99px;background:#16181d;box-shadow:inset 0 1px 2px #000}
+.device b{
+  width:62px;height:62px;display:grid;place-items:center;margin-top:8px;
+  border-radius:22px;color:#fff;background:linear-gradient(145deg,#43a1ff,#075fc7);
+  font-size:35px;font-weight:600;line-height:1;
+  box-shadow:0 10px 25px rgba(0,104,220,.27);
+}
+.device small{margin-top:12px;color:#435c7b;font-size:8px;font-weight:800;letter-spacing:.18em}
+.device-shine{position:absolute;inset:0;border-radius:26px;background:linear-gradient(125deg,transparent 35%,rgba(255,255,255,.38) 49%,transparent 62%);pointer-events:none}
+.art-caption{position:absolute;bottom:23px;color:#a9bdd6;font-size:9px;font-weight:700;letter-spacing:.23em;text-align:center}
+.card{
+  width:min(100%,820px);margin:0 auto 68px;padding:clamp(23px,4vw,42px);
+  border:1px solid #2b2d34;border-radius:30px;
+  background:linear-gradient(155deg,rgba(27,28,33,.98),rgba(19,20,24,.98));
+  box-shadow:0 26px 80px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.045);
+}
+.cardhead{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:27px}
+h2{margin:10px 0 8px;color:#f5f5f7;font-size:clamp(25px,3vw,32px);font-weight:720;letter-spacing:-.05em;line-height:1.08}
+.sub{margin:0;color:#a1a1aa;font-size:13px;line-height:1.65}
+.step{white-space:nowrap;padding:9px 13px;border:1px solid #34485f;border-radius:999px;background:#1a2a3b;color:#9ccaff;font-size:10px;font-weight:750;letter-spacing:.08em}
+form{display:grid;grid-template-columns:1fr;gap:14px}
+.field{min-width:0}.full{grid-column:1/-1}
+label{display:block;margin:0 0 9px;color:#e3e3e8;font-size:12px;font-weight:680;letter-spacing:0}
+.optional{color:#9696a0;font-size:11px;font-weight:500}
+input,select,textarea{
+  display:block;width:100%;min-height:51px;padding:14px 15px;
+  border:1px solid #3a3c44;border-radius:14px;outline:0;
+  color:#f5f5f7;background:#202126;
+  font:inherit;font-size:14px;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.16);
+  transition:border-color .18s,background .18s,box-shadow .18s;
+}
+input::placeholder,textarea::placeholder{color:#85858f}
+input:hover,select:hover,textarea:hover{border-color:#5b5e69}
+input:focus,select:focus,textarea:focus{border-color:#3797ff;background:#242832;box-shadow:0 0 0 4px rgba(10,132,255,.16)}
+textarea{min-height:120px;line-height:1.65;resize:vertical}
+select{color-scheme:dark}
+.phone{display:flex}.prefix{display:grid;place-items:center;padding:0 14px;border:1px solid #3a3c44;border-right:0;border-radius:14px 0 0 14px;background:#292a30;color:#d1d1d6;font-size:13px}.phone input{border-radius:0 14px 14px 0}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice{display:flex;align-items:center;gap:10px;padding:13px;border:1px solid #353740;border-radius:14px;background:#202126;color:#f5f5f7;text-align:left;cursor:pointer;font:inherit;transition:.18s}
+.choice.active,.choice:hover{border-color:#438ed9;background:#1e2a39;box-shadow:inset 0 0 0 1px rgba(67,142,217,.2)}
+.choice .ico{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#20b96b;color:#fff;font-size:17px;font-weight:900}
+.choice.tg .ico{background:#229ed9}.choice span:last-child{font-size:13px;font-weight:700}
+.action{grid-column:1/-1;display:flex;align-items:center;gap:15px;margin-top:4px}
+.submit,.wizard-next{
+  min-height:49px;padding:14px 21px;border:0;border-radius:999px;
+  color:#fff;background:var(--blue);font-size:13px;font-weight:700;cursor:pointer;
+  box-shadow:0 7px 20px rgba(10,132,255,.2);
+  transition:background .18s,transform .18s,box-shadow .18s;
+}
+.submit:hover,.wizard-next:hover{background:var(--blue-hover);transform:translateY(-1px);box-shadow:0 10px 26px rgba(10,132,255,.28)}
+.submit:active,.wizard-next:active{transform:scale(.98)}
+.submit:disabled{opacity:.58;cursor:wait}
+.fine{max-width:430px;color:#92929c;font-size:11px;line-height:1.6}
+.notice{display:none;margin-top:16px;padding:14px 16px;border:1px solid #345d84;border-radius:14px;background:#172b40;color:#cce5ff;font-size:13px;line-height:1.6}
+footer{display:flex;justify-content:space-between;gap:14px;padding:0 4px 30px;border-top:1px solid rgba(255,255,255,.08);padding-top:20px;color:#82828d;font-size:11px}
+footer strong{color:#d6d6dc;letter-spacing:.08em}
+.map-field{display:grid;gap:11px;padding:17px;border:1px solid #343740;border-radius:18px;background:#1b1c21}
+.map-actions{display:flex;flex-wrap:wrap;gap:9px}
+.map-button,.map-direction{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:43px;padding:11px 15px;border:1px solid #3b4a5d;border-radius:999px;
+  background:#202c3a;color:#a9d2ff;font:650 12px system-ui,sans-serif;text-decoration:none;cursor:pointer;
+  transition:background .18s,border-color .18s,transform .18s;
+}
+.map-button:hover,.map-direction:hover{background:#263b52;border-color:#6096cc;transform:translateY(-1px)}
+.map-button:disabled{opacity:.45;cursor:not-allowed}
+.map-direction[hidden]{display:none}
+#serviceMap{height:350px;width:100%;border:1px solid #41434c;border-radius:15px;overflow:hidden;background:#24262c;z-index:1}
+#serviceMap .leaflet-tile-pane{filter:brightness(.82) saturate(.78)}
+#serviceMap .leaflet-control-zoom a{background:#202126;color:#f5f5f7;border-color:#454752}
+#serviceMap .leaflet-control-attribution{background:rgba(255,255,255,.88);color:#555}
+#serviceMap .leaflet-control-attribution a{color:#0868c8}
+.map-status{margin:0;color:#c1c1c9;font-size:12px;line-height:1.6}
+.map-status.error{color:#ff8e8e}
+.map-help{margin:0;color:#92929c;font-size:11px;line-height:1.55}
+.wizard-progress{grid-column:1/-1;margin:0 0 5px;padding:16px 18px;border:1px solid #343741;border-radius:17px;background:#1b1c21}
+.wizard-progress-line{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#e3e3e8;font-size:12px}
+.wizard-progress-line strong{color:#8fc5ff;font-weight:750}
+.wizard-progress-line span{color:#9c9ca6}
+.wizard-progress-track{height:5px;margin-top:12px;border-radius:20px;background:#363841;overflow:hidden}
+.wizard-progress-track span{display:block;width:14.2857%;height:100%;border-radius:20px;background:linear-gradient(90deg,#0a84ff,#75bbff);transition:width .25s ease}
+.wizard-step{grid-column:1/-1;min-width:0;display:grid;gap:18px;padding:23px;border:1px solid #343741;border-radius:20px;background:#1a1b20;box-shadow:inset 0 1px rgba(255,255,255,.025)}
+.wizard-step[hidden]{display:none!important}
+.wizard-step-heading{display:flex;align-items:center;gap:13px;padding-bottom:15px;border-bottom:1px solid #33353d}
+.wizard-step-number{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;border:1px solid #365b7d;border-radius:14px;background:#1b3045;color:#9bceff;font-size:13px;font-weight:800}
+.wizard-step-heading h3{margin:0;color:#f5f5f7;font-size:17px;font-weight:700;letter-spacing:-.035em}
+.wizard-step-heading p{margin:4px 0 0;color:#9d9da7;font-size:12px;line-height:1.5}
+.wizard-step>.field,.wizard-step>.field.full{grid-column:1/-1;min-width:0}
+.wizard-step .map-field{margin:0}
+.wizard-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:3px}
+.wizard-next,.wizard-back{min-height:46px;padding:12px 18px;border-radius:999px;font:700 13px system-ui,sans-serif;cursor:pointer;transition:transform .18s,background .18s}
+.wizard-back{border:1px solid #41434c;background:#292a30;color:#e4e4e9}
+.wizard-back:hover{background:#34363e;transform:translateY(-1px)}
+.wizard-next span{margin-left:10px}
+.wizard-first-note{color:#8f8f99;font-size:11px}
+.wizard-step[data-wizard-step="6"] #telegramVerifyBox{margin:0}
+.wizard-step[data-wizard-step="6"] .action{margin:0}
+.wizard-step[data-wizard-step="6"] .wizard-nav{justify-content:flex-start}
+.phone-picker{position:relative;width:100%}
+.phone-model-suggestions{
+  position:absolute;z-index:1200;top:calc(100% + 8px);left:0;right:0;max-height:340px;overflow:auto;
+  padding:7px;border:1px solid #3b3d46;border-radius:16px;background:#222329;
+  box-shadow:0 18px 48px rgba(0,0,0,.55);
+}
+.phone-model-suggestions[hidden],.phone-model-preview[hidden]{display:none!important}
+.phone-model-option{width:100%;display:flex;align-items:center;gap:12px;padding:9px;border:1px solid transparent;border-radius:12px;background:transparent;color:#f5f5f7;text-align:left;cursor:pointer;font:inherit}
+.phone-model-option:hover,.phone-model-option:focus{outline:0;border-color:#385d82;background:#29394b}
+.phone-model-option img{width:56px;height:66px;flex:0 0 56px;object-fit:contain;border-radius:9px;background:#fff}
+.phone-model-option span{display:grid;gap:4px;min-width:0}
+.phone-model-option strong{font-size:13px;font-weight:750}
+.phone-model-option small{color:#a1a1aa;font-size:11px}
+.phone-model-empty{padding:13px;color:#a1a1aa;font-size:12px;line-height:1.5}
+.phone-model-preview{display:flex;align-items:center;gap:13px;padding:12px;border:1px solid #3a3c45;border-radius:14px;background:#22242a}
+.phone-model-preview img{width:72px;height:82px;flex:0 0 72px;object-fit:contain;border-radius:10px;background:#fff}
+.phone-model-preview div{display:grid;gap:5px;min-width:0}
+.phone-model-preview strong{color:#f5f5f7;font-size:13px}
+.phone-model-preview span{color:#a1a1aa;font-size:11px}
+.phone-model-preview button{width:34px;height:34px;margin-left:auto;border:1px solid #454751;border-radius:10px;background:#303139;color:#eee;font-size:22px;cursor:pointer}
+.phone-model-option img.image-failed,.phone-model-preview img.image-failed{display:none}
+#telegramVerifyBox{padding:19px;border:1px solid #344354;border-radius:17px;background:#1d2733}
+#telegramVerifyBox label{font-size:13px}
+#telegramVerifyButton{width:100%;min-height:52px;justify-content:center}
+#telegramVerifyButton:disabled{opacity:.6;cursor:wait}
+#telegramVerifyStatus{margin-top:12px!important}
+#telegramVerifyStatus.verified{color:#51d89a!important}
+#telegramVerifyStatus.failed{color:#ff8d8d!important}
+.verify-actions{display:grid;grid-template-columns:1fr;gap:11px}
+.verify-provider{width:100%;min-height:52px;display:flex;align-items:center;justify-content:center;gap:10px}
+.messenger-label{display:inline-flex;align-items:center;gap:8px}
+.messenger-icon{width:25px;height:25px;flex:0 0 25px;vertical-align:middle}
+.whatsapp-submit{min-height:52px;padding:15px 20px;border:1px solid #2b9d69;border-radius:999px;color:#fff;background:#1baf65;box-shadow:0 8px 22px rgba(32,182,107,.16);font-size:13px;font-weight:750;cursor:pointer}
+.whatsapp-submit:hover{background:#24c477}
+@keyframes phoneFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-10px) rotate(-2deg)}}
+button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible{outline:3px solid rgba(10,132,255,.5);outline-offset:3px}
+.manager-contact-links{display:grid;gap:10px;margin:18px 0;padding:16px;border:1px solid #34485f;border-radius:16px;background:#1b2634}.manager-contact-links p{margin:0 0 3px;color:#dbeaff;font-size:13px;font-weight:700}.manager-contact{display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 16px;border-radius:999px;color:#fff;text-decoration:none;font-size:13px;font-weight:750}.manager-contact.whatsapp{background:#16834f}.manager-contact.telegram{background:#258acb}.manager-contact[hidden]{display:none!important}.inline-check{display:flex;align-items:center;gap:9px;margin:12px 0;color:#bfc0c8;font-size:12px}.inline-check input{width:18px;min-height:18px;accent-color:#0a84ff}#repair{scroll-margin-top:95px}
+@media(max-width:760px){
+  .wrap{width:min(100% - 32px,620px)}
+  header{height:68px}
+  .hero{padding:52px 0 38px;gap:24px}
+  h1{font-size:clamp(44px,10vw,64px)}
+  .art{min-height:270px;border-radius:27px}
+  .card{padding:22px 17px;margin-bottom:44px}
+  .wizard-step{padding:19px 15px}
+}
+@media(max-width:560px){
+  .wrap{width:calc(100% - 24px)}
+  .brand{font-size:12px;gap:9px}
+  .mark{width:39px;height:39px;flex-basis:39px}
+  .brand small{font-size:7px;letter-spacing:.14em}
+  .topnote{display:none}
+  .header-right{gap:0}
+  .hero{padding:42px 0 29px;gap:21px}
+  h1{font-size:clamp(40px,11vw,54px);letter-spacing:-.07em}
+  .lead{font-size:14px;line-height:1.7}
+  .hero-actions{gap:12px;margin-top:21px}
+  .hero-cta{width:100%;min-height:49px}
+  .hero-note{font-size:10px}
+  .point{font-size:10px;padding:8px 11px}
+  .art{min-height:235px;border-radius:23px}
+  .device{width:116px;height:196px;border-radius:29px}
+  .card{border-radius:23px;padding:20px 15px}
+  .cardhead{align-items:flex-start;gap:12px;margin-bottom:20px}
+  .step{font-size:9px;padding:8px 10px}
+  .wizard-progress{padding:13px}
+  .wizard-step{gap:15px;border-radius:17px;padding:16px 12px}
+  .wizard-step-heading h3{font-size:15px}
+  .wizard-nav{gap:8px}
+  .wizard-next,.wizard-back{min-height:45px;padding:11px 13px;font-size:12px}
+  .wizard-first-note{max-width:130px;line-height:1.4}
+  .map-field{padding:12px}
+  #serviceMap{height:285px}
+  .map-actions>*{flex:1 1 100%}
+  .map-button,.map-direction{width:100%}
+  #telegramVerifyBox{padding:14px}
+  .phone-model-suggestions{max-height:290px}
+  .phone-model-option img{width:49px;height:58px;flex-basis:49px}
+  .phone-model-preview img{width:62px;height:72px;flex-basis:62px}
+  .choices{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .device{animation:none}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+
+
+/* QAMQOR PHONE — refined premium interface */
+:root{
+  --bg:#07090d;
+  --surface:#11151c;
+  --surface-2:#171d26;
+  --surface-3:#202936;
+  --line:rgba(177,202,232,.16);
+  --text:#f7faff;
+  --muted:#a8b4c4;
+  --blue:#1688ff;
+  --blue-hover:#48a2ff;
+}
+body{
+  background:
+    radial-gradient(ellipse at 50% -18%,rgba(22,136,255,.20),transparent 38rem),
+    radial-gradient(ellipse at 100% 42%,rgba(93,111,255,.075),transparent 30rem),
+    #07090d;
+}
+.wrap{width:min(1160px,calc(100% - 52px))}
+header{
+  height:80px;
+  border-bottom:1px solid rgba(205,225,255,.10);
+  background:rgba(7,9,13,.76);
+  box-shadow:0 12px 40px rgba(0,0,0,.12);
+}
+.mark{border-radius:15px;box-shadow:0 7px 24px rgba(0,0,0,.3)}
+.brand{letter-spacing:.075em}
+.hero-cta,.submit,.wizard-next{
+  background:linear-gradient(135deg,#1688ff,#0865d7);
+  box-shadow:0 9px 28px rgba(10,132,255,.23),inset 0 1px rgba(255,255,255,.2);
+}
+.hero-cta:hover,.submit:hover,.wizard-next:hover{
+  background:linear-gradient(135deg,#48a2ff,#1478e8);
+  box-shadow:0 13px 34px rgba(10,132,255,.30);
+}
+.hero{padding:88px 0 66px;gap:34px}
+.tag{color:#91c8ff;letter-spacing:.22em}
+h1{font-weight:780;letter-spacing:-.082em}
+.lead{color:#b0bdce;max-width:620px}
+.point{
+  border-color:rgba(177,202,232,.17);
+  background:rgba(20,28,39,.72);
+  color:#dce8f7;
+  backdrop-filter:blur(12px);
+}
+.art,.premium-art{
+  border-color:rgba(188,214,247,.15);
+  border-radius:36px;
+  background:
+    radial-gradient(ellipse at 50% 42%,rgba(45,117,204,.27),transparent 44%),
+    linear-gradient(145deg,#192331,#0d121a 62%,#171827);
+  box-shadow:0 35px 100px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.09);
+}
+.card{
+  border-color:rgba(177,202,232,.16);
+  border-radius:32px;
+  background:linear-gradient(155deg,rgba(20,26,35,.98),rgba(12,16,23,.98));
+  box-shadow:0 30px 90px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.055);
+}
+.step,.wizard-step-number{
+  border-color:rgba(87,160,230,.34);
+  background:rgba(24,83,137,.20);
+  color:#a9d4ff;
+}
+.wizard-progress,.wizard-step{
+  border-color:rgba(177,202,232,.14);
+  background:rgba(10,15,23,.62);
+}
+.wizard-step{border-radius:22px}
+input,select,textarea{
+  border-color:rgba(177,202,232,.18);
+  border-radius:15px;
+  background:#141b25;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:#3b9cff;
+  background:#172333;
+  box-shadow:0 0 0 4px rgba(22,136,255,.14);
+}
+.choice{
+  border-color:rgba(177,202,232,.16);
+  background:#141b25;
+}
+.choice.active,.choice:hover{
+  border-color:#398fe0;
+  background:#172b40;
+}
+.map-field,#telegramVerifyBox{
+  border-color:rgba(177,202,232,.16);
+  background:#111a25;
+}
+#serviceMap{border-color:rgba(177,202,232,.2)}
+.notice{
+  border-color:rgba(68,157,235,.4);
+  background:rgba(20,57,91,.65);
+}
+footer{border-color:rgba(205,225,255,.10);color:#91a0b3}
+footer strong{color:#e4efff}
+button,a{transition:all .22s ease}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:3px solid rgba(69,162,255,.5);outline-offset:3px
+}
+@media(max-width:760px){
+  .wrap{width:min(100% - 30px,620px)}
+  .hero{padding:58px 0 42px}
+  .card{border-radius:25px}
+}
+@media(max-width:560px){
+  .wrap{width:calc(100% - 22px)}
+  header{height:70px}
+  .hero{padding:46px 0 32px}
+  .art,.premium-art{border-radius:25px}
+  .card{border-radius:22px}
+}
+
+
+/* Blue typography + prevent page zoom and text selection */
+:root{
+  --text:#e4f1ff;
+  --muted:#a9c8ed;
+}
+body{color:#cfe3ff}
+h2,.wizard-step-heading h3,label,.topnote,.lead,.sub,.fine,.map-status,.map-help{
+  color:#b9d8ff;
+}
+.brand{color:#e4f1ff}
+.point{color:#c9e2ff}
+html,body{
+  touch-action:pan-x pan-y;
+  -webkit-text-size-adjust:100%;
+}
+body,body *{
+  -webkit-user-select:none !important;
+  user-select:none !important;
+  -webkit-touch-callout:none;
+}
+input,textarea,[contenteditable="true"]{
+  -webkit-user-select:text !important;
+  user-select:text !important;
+  -webkit-touch-callout:default;
+}
+#serviceMap{touch-action:auto}
+
+
+/* QAMQOR PHONE — signature experience */
+:root{
+  --bg:#070b12;
+  --surface:#111a27;
+  --surface-2:#172438;
+  --line:rgba(153,190,232,.16);
+  --blue:#168cff;
+  --blue2:#65b7ff;
+  --ice:#dceeff;
+  --muted:#99aec6;
+}
+html{scroll-padding-top:100px}
+body{
+  color:#e8f3ff;
+  background:
+    radial-gradient(ellipse at 8% 5%,rgba(18,113,226,.15),transparent 34rem),
+    radial-gradient(ellipse at 90% 22%,rgba(78,86,210,.12),transparent 38rem),
+    radial-gradient(ellipse at 50% 78%,rgba(12,91,145,.08),transparent 40rem),
+    #070b12;
+}
+.wrap{width:min(1220px,calc(100% - 56px))}
+.site-header{
+  height:82px;
+  display:flex;
+  gap:28px;
+  background:rgba(7,11,18,.78);
+  border-bottom:1px solid rgba(188,218,255,.10);
+  box-shadow:0 14px 44px rgba(0,0,0,.16);
+}
+.brand{text-decoration:none;flex-shrink:0}
+.main-nav{display:flex;align-items:center;gap:27px;margin-left:auto}
+.main-nav a{
+  color:#9db2ca;text-decoration:none;font-size:12px;font-weight:650;
+  transition:color .2s ease;
+}
+.main-nav a:hover{color:#fff}
+.header-right{gap:16px}
+.topnote{display:flex;align-items:center;gap:9px;color:#a6bad1}
+.topnote i{width:7px;height:7px;border-radius:50%;background:#45d59a;box-shadow:0 0 0 5px rgba(69,213,154,.12)}
+.hero-cta,.submit,.wizard-next{
+  border:1px solid rgba(170,220,255,.25);
+  background:linear-gradient(135deg,#2298ff 0%,#0870e4 58%,#0959c0 100%);
+  box-shadow:0 10px 30px rgba(8,112,228,.23),inset 0 1px rgba(255,255,255,.23);
+}
+.hero-cta:hover,.submit:hover,.wizard-next:hover{
+  background:linear-gradient(135deg,#54b4ff,#1685f4 65%,#0b67d8);
+  transform:translateY(-2px);
+}
+.hero{
+  grid-template-columns:minmax(0,1.02fr) minmax(400px,.98fr);
+  align-items:center;
+  justify-items:stretch;
+  text-align:left;
+  gap:clamp(34px,6vw,82px);
+  padding:clamp(72px,9vw,120px) 0 78px;
+}
+.hero>div:first-child{max-width:none}
+.hero-copy{position:relative;z-index:2}
+.hero-copy .tag{font-size:10px}
+.hero h1{
+  max-width:660px;
+  margin:22px 0 22px;
+  font-size:clamp(46px,6.4vw,79px);
+  line-height:.99;
+  letter-spacing:-.078em;
+  color:#f1f7ff;
+}
+.hero h1 span{
+  color:#7fc4ff;
+  background:linear-gradient(105deg,#49a9ff 4%,#a7d8ff 52%,#8d9dff 100%);
+  background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero .lead{
+  max-width:540px;
+  margin:0;
+  color:#a8bbd1;
+  font-size:15px;
+  line-height:1.85;
+}
+.hero-actions{justify-content:flex-start;gap:13px;margin-top:30px}
+.hero-cta{min-height:54px;padding:16px 25px;font-size:14px}
+.hero-secondary{
+  min-height:52px;display:inline-flex;align-items:center;gap:11px;
+  padding:14px 19px;border:1px solid rgba(174,204,239,.18);
+  border-radius:999px;background:rgba(19,31,48,.48);
+  color:#c9def6;text-decoration:none;font-size:13px;font-weight:650;
+  transition:background .2s,border-color .2s,transform .2s;
+}
+.hero-secondary:hover{background:rgba(32,58,88,.72);border-color:#4c91d4;transform:translateY(-2px)}
+.hero-points{display:grid;gap:11px;margin-top:30px;color:#9fb5cf;font-size:12px;font-weight:600}
+.hero-points span{display:flex;align-items:center;gap:10px}
+.hero-points i{
+  width:19px;height:19px;display:grid;place-items:center;border-radius:50%;
+  background:rgba(37,183,130,.14);border:1px solid rgba(65,218,164,.32);
+  color:#61e0b0;font-size:11px;font-style:normal;
+}
+.art,.premium-art{
+  width:100%;min-height:475px;max-width:610px;justify-self:end;
+  border-radius:38px;overflow:hidden;
+  border:1px solid rgba(155,199,246,.18);
+  background:
+    radial-gradient(ellipse at 51% 48%,rgba(31,133,242,.28),transparent 43%),
+    radial-gradient(ellipse at 85% 12%,rgba(123,106,255,.17),transparent 38%),
+    linear-gradient(145deg,#17263a 0%,#0d1726 56%,#11162a 100%);
+  box-shadow:0 42px 110px rgba(0,0,0,.47),inset 0 1px rgba(255,255,255,.10);
+  perspective:1000px;
+}
+.art-grid{
+  position:absolute;inset:0;opacity:.17;pointer-events:none;
+  background-image:linear-gradient(rgba(173,213,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(173,213,255,.12) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(135deg,#000,transparent 78%);
+}
+.art-orbit{
+  position:absolute;left:50%;top:48%;border:1px solid rgba(118,183,255,.20);
+  border-radius:50%;transform:translate(-50%,-50%) rotate(-25deg);
+}
+.orbit-one{width:390px;height:390px}
+.orbit-two{width:470px;height:470px;border-style:dashed;opacity:.55;animation:orbitSpin 42s linear infinite}
+.art-glow{
+  position:absolute;left:18%;right:18%;top:18%;bottom:18%;border-radius:50%;
+  background:radial-gradient(circle,rgba(36,136,255,.26),transparent 68%);
+  filter:blur(28px);
+}
+.device{
+  width:202px;height:352px;z-index:2;
+  padding:8px;border:5px solid #65758d;border-radius:43px;
+  background:linear-gradient(145deg,#ecf5ff,#8da9ca 58%,#d5e7fa);
+  box-shadow:0 38px 85px rgba(0,0,0,.58),inset 0 0 0 1px rgba(255,255,255,.9),0 0 50px rgba(52,147,255,.16);
+  transform:rotate(-8deg) rotateX(var(--device-tilt-y,0deg)) rotateY(var(--device-tilt-x,0deg));
+  animation:qPhoneFloat 6.5s ease-in-out infinite;
+}
+.device-camera{
+  top:10px;width:63px;height:16px;border-radius:99px;background:#101a2b;
+  box-shadow:inset 0 1px 3px #000,0 1px 0 rgba(255,255,255,.24);
+}
+.device-screen{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:9px;border-radius:31px;overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 32%,rgba(66,151,255,.25),transparent 38%),
+    linear-gradient(155deg,#f8fbff,#d7e8fa 60%,#b5d4f4);
+  color:#183a61;box-shadow:inset 0 0 0 1px rgba(255,255,255,.7);
+}
+.device-logo{
+  width:94px;height:94px;display:grid;place-items:center;margin-top:12px;
+  border-radius:27px;background:#fff;overflow:hidden;
+  box-shadow:0 15px 34px rgba(23,78,140,.18);
+}
+.device-logo img{width:100%;height:100%;object-fit:contain}
+.device-screen>strong{font-size:14px;letter-spacing:.15em;font-weight:850}
+.device-screen>span{font-size:8px;letter-spacing:.26em;color:#6685a9;font-weight:800}
+.device-check{
+  width:42px;height:42px;display:grid;place-items:center;margin-top:10px;
+  border-radius:50%;background:linear-gradient(145deg,#158cff,#075fc8);
+  color:#fff;font-size:22px;font-weight:800;
+  box-shadow:0 9px 24px rgba(13,111,221,.28);
+}
+.device-shine{position:absolute;inset:0;border-radius:34px;background:linear-gradient(120deg,transparent 29%,rgba(255,255,255,.5) 47%,transparent 62%);pointer-events:none}
+.hero-float{
+  position:absolute;z-index:4;display:flex;align-items:center;gap:12px;
+  padding:14px 17px;border:1px solid rgba(191,220,255,.20);
+  border-radius:17px;background:rgba(12,25,42,.72);
+  box-shadow:0 18px 45px rgba(0,0,0,.23);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+}
+.hero-float strong,.hero-float small{display:block}
+.hero-float strong{color:#eff7ff;font-size:11px;font-weight:800;letter-spacing:.05em}
+.hero-float small{margin-top:4px;color:#9eb7d4;font-size:10px}
+.hero-float-top{top:14%;left:5%}
+.hero-float-bottom{right:5%;bottom:18%}
+.float-icon,.float-check{
+  width:34px;height:34px;display:grid;place-items:center;flex:0 0 34px;
+  border-radius:11px;background:linear-gradient(145deg,#2c9fff,#175fca);
+  color:white;font-size:17px;box-shadow:0 8px 20px rgba(17,117,225,.25);
+}
+.float-check{background:linear-gradient(145deg,#30d59a,#139b76);font-weight:800}
+.art-caption{
+  bottom:24px;color:#a6c9ee;font-size:9px;letter-spacing:.25em;
+}
+.services-section{padding:34px 0 92px}
+.section-heading{max-width:650px;margin:0 auto 36px;text-align:center}
+.section-heading .tag{justify-content:center}
+.section-heading h2{
+  margin:15px 0 12px;color:#eef6ff;font-size:clamp(30px,4.5vw,48px);
+  line-height:1.05;letter-spacing:-.065em;font-weight:760;
+}
+.section-heading p{margin:0;color:#96acc5;font-size:14px;line-height:1.75}
+.service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.service-card{
+  position:relative;min-height:236px;overflow:hidden;
+  padding:23px 23px 21px;border:1px solid rgba(154,191,231,.15);
+  border-radius:23px;background:linear-gradient(150deg,rgba(22,36,54,.88),rgba(12,20,32,.90));
+  box-shadow:inset 0 1px rgba(255,255,255,.045);
+  transition:transform .28s,border-color .28s,box-shadow .28s;
+}
+.service-card:before{
+  content:"";position:absolute;width:170px;height:170px;right:-90px;top:-100px;
+  border-radius:50%;background:rgba(32,139,255,.17);filter:blur(18px);
+}
+.service-card:hover{transform:translateY(-7px);border-color:rgba(86,167,248,.45);box-shadow:0 24px 55px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.07)}
+.service-icon{
+  width:51px;height:51px;display:grid;place-items:center;margin-bottom:20px;
+  border:1px solid rgba(133,194,255,.22);border-radius:16px;
+  background:linear-gradient(145deg,rgba(37,143,255,.22),rgba(82,113,218,.12));
+  color:#9ed1ff;font-size:27px;font-weight:700;
+  box-shadow:inset 0 1px rgba(255,255,255,.08);
+}
+.icon-audio span{font-size:17px;letter-spacing:-.1em}
+.service-card-top{position:absolute;top:29px;left:87px;right:22px;display:flex;justify-content:space-between;align-items:center;color:#7898bc;font-size:9px;font-weight:800;letter-spacing:.16em}
+.service-arrow{color:#8dbfff;font-size:15px}
+.service-card h3{position:relative;margin:0 0 8px;color:#e9f4ff;font-size:18px;letter-spacing:-.04em}
+.service-card p{position:relative;min-height:42px;margin:0 0 18px;color:#96abc2;font-size:12px;line-height:1.65}
+.service-card>a{position:relative;display:inline-flex;align-items:center;gap:10px;color:#8fc7ff;text-decoration:none;font-size:11px;font-weight:800}
+.service-card>a:hover{color:#fff}
+#repair{
+  width:min(900px,100%);margin:0 auto 88px;padding:clamp(25px,4vw,44px);
+  border-color:rgba(154,191,231,.18);border-radius:30px;
+  background:linear-gradient(150deg,rgba(18,29,44,.97),rgba(9,15,24,.98));
+  box-shadow:0 35px 90px rgba(0,0,0,.40),inset 0 1px rgba(255,255,255,.065);
+}
+.cardhead{align-items:flex-start}
+.cardhead h2{color:#f0f7ff}
+.wizard-progress,.wizard-step{
+  border-color:rgba(153,191,234,.15);
+  background:rgba(7,13,22,.56);
+}
+.wizard-step{border-radius:22px}
+.wizard-step-heading h3{color:#e9f4ff}
+.wizard-step-heading p{color:#92aac5}
+.wizard-step-number{box-shadow:0 8px 23px rgba(14,113,216,.13)}
+input,select,textarea{
+  color:#e8f3ff;background:#101b29;border-color:rgba(157,192,230,.18);
+}
+input::placeholder,textarea::placeholder{color:#7188a3}
+input:focus,select:focus,textarea:focus{background:#14243a}
+.choice{background:#101b29;border-color:rgba(157,192,230,.16)}
+.choice.active,.choice:hover{background:#172c45;border-color:#398fe0}
+.map-field,#telegramVerifyBox{background:rgba(12,23,37,.78);border-color:rgba(157,192,230,.16)}
+footer{
+  align-items:center;border-color:rgba(170,204,242,.12);
+  color:#829ab5;padding-top:24px;
+}
+footer strong{color:#d5e9ff}
+.qamqor-reveal-ready .qamqor-reveal{
+  opacity:0;transform:translateY(22px);
+  transition:opacity .65s ease var(--reveal-delay,0ms),transform .65s cubic-bezier(.2,.75,.2,1) var(--reveal-delay,0ms);
+}
+.qamqor-reveal-ready .qamqor-reveal.qamqor-visible{opacity:1;transform:translateY(0)}
+@keyframes orbitSpin{to{transform:translate(-50%,-50%) rotate(335deg)}}
+@keyframes qPhoneFloat{
+  0%,100%{transform:translateY(0) rotate(-8deg) rotateX(var(--device-tilt-y,0deg)) rotateY(var(--device-tilt-x,0deg))}
+  50%{transform:translateY(-13px) rotate(-5deg) rotateX(var(--device-tilt-y,0deg)) rotateY(var(--device-tilt-x,0deg))}
+}
+@media(max-width:900px){
+  .wrap{width:min(100% - 36px,760px)}
+  .site-header{gap:15px}
+  .main-nav{gap:15px}
+  .topnote{display:none}
+  .hero{grid-template-columns:1fr;gap:38px;padding:64px 0 65px}
+  .hero-copy{max-width:680px}
+  .hero .lead{max-width:600px}
+  .art,.premium-art{justify-self:center;max-width:650px;min-height:430px}
+  .service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:620px){
+  .wrap{width:calc(100% - 26px)}
+  .site-header{height:70px;gap:10px}
+  .brand{font-size:11px;gap:8px}
+  .mark{width:39px;height:39px;flex-basis:39px}
+  .brand small{font-size:6px}
+  .main-nav{
+    display:flex;position:fixed;z-index:950;left:50%;
+    bottom:calc(env(safe-area-inset-bottom) + 12px);
+    transform:translateX(-50%);gap:4px;width:max-content;
+    max-width:calc(100% - 24px);padding:7px;
+    border:1px solid rgba(164,204,247,.22);border-radius:999px;
+    background:rgba(8,17,29,.86);backdrop-filter:blur(22px) saturate(150%);
+    -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:0 16px 42px rgba(0,0,0,.4),inset 0 1px rgba(255,255,255,.08);
+  }
+  .main-nav a{padding:9px 12px;border-radius:999px;font-size:10px;white-space:nowrap}
+  .main-nav a:hover{background:rgba(45,139,239,.18)}
+  body{padding-bottom:82px}
+  .header-right{margin-left:auto}
+  .hero{padding:48px 0 45px;gap:27px}
+  .hero h1{font-size:clamp(42px,11vw,59px);margin:18px 0;letter-spacing:-.075em}
+  .hero .lead{font-size:13px;line-height:1.75}
+  .hero-actions{display:grid;grid-template-columns:1fr;gap:10px;margin-top:23px}
+  .hero-cta,.hero-secondary{width:100%;justify-content:center}
+  .hero-points{gap:9px;margin-top:22px;font-size:11px}
+  .art,.premium-art{min-height:340px;border-radius:25px}
+  .device{width:150px;height:264px;border-radius:34px}
+  .device-screen{border-radius:24px}
+  .device-logo{width:73px;height:73px;border-radius:21px}
+  .orbit-one{width:275px;height:275px}
+  .orbit-two{width:320px;height:320px}
+  .hero-float{padding:10px 12px;gap:8px;border-radius:13px}
+  .hero-float-top{top:11%;left:3%}
+  .hero-float-bottom{right:3%;bottom:17%}
+  .hero-float strong{font-size:9px}
+  .hero-float small{font-size:8px}
+  .float-icon,.float-check{width:28px;height:28px;flex-basis:28px;font-size:14px}
+  .art-caption{bottom:15px;font-size:7px}
+  .services-section{padding:24px 0 60px}
+  .section-heading{margin-bottom:25px}
+  .section-heading h2{font-size:34px}
+  .section-heading p{font-size:12px}
+  .service-grid{grid-template-columns:1fr;gap:11px}
+  .service-card{min-height:205px;padding:20px;border-radius:19px}
+  .service-card p{min-height:0}
+  #repair{padding:20px 14px;margin-bottom:55px;border-radius:23px}
+  .cardhead{gap:10px}
+  .step{font-size:8px;padding:8px}
+  footer{font-size:10px;gap:11px}
+}
+@media(prefers-reduced-motion:reduce){
+  .orbit-two,.device{animation:none!important}
+  .qamqor-reveal-ready .qamqor-reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{scroll-behavior:auto!important}
+}
+
+
+</style>
+<style>
+.quote-consent{display:flex;align-items:flex-start;gap:10px;margin-top:14px;color:#cbd5e1;font-size:12px;line-height:1.55}
+.quote-consent input{width:18px;height:18px;flex:0 0 18px;margin-top:1px;accent-color:#60a5fa}
+.quote-panel{margin-top:18px;padding:22px;border:1px solid rgba(139,184,230,.24);border-radius:22px;background:linear-gradient(145deg,#101b2b,#10151f);color:#f7f9fc;box-shadow:0 18px 55px rgba(0,0,0,.22)}
+.quote-panel-top{margin-bottom:18px}
+.quote-kicker{font-size:10px;letter-spacing:.16em;color:#8eb8e8;font-weight:800}
+.quote-panel h3{margin:8px 0;font-size:22px;color:#fff}
+.quote-panel p{color:#abb9cb;font-size:13px;line-height:1.6}
+.quote-id{font-size:11px!important;color:#7f95ae!important;word-break:break-all}
+.quote-amounts{padding:16px;border:1px solid rgba(255,255,255,.09);border-radius:15px;background:rgba(255,255,255,.035)}
+.quote-line{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px}
+.quote-line span{color:#aebbd0}.quote-line strong{color:#f5f8fc;text-align:right}
+.quote-total{display:flex;justify-content:space-between;gap:12px;padding-top:16px;font-size:15px;font-weight:800}
+.quote-total strong{color:#75c7ff;font-size:22px}
+.quote-disclaimer{margin:14px 0 0!important;font-size:11px!important}
+.quote-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.quote-actions button,.quote-new{min-height:46px;padding:12px 16px;border-radius:13px;font-weight:750;cursor:pointer}
+.quote-agree{border:1px solid #2a9e70;background:linear-gradient(135deg,#16865b,#1e9b6d);color:white}
+.quote-agree:disabled{opacity:.55;cursor:wait}
+.quote-accept{border:1px solid #2a9e70;background:#16865b;color:white}
+.quote-accept:disabled{opacity:.45;cursor:not-allowed}
+.quote-cancel{border:1px solid rgba(255,255,255,.16);background:#242b37;color:#e7edf5}
+.quote-new{margin-top:12px;border:1px solid rgba(129,177,226,.25);background:#1b2c41;color:#dcecff}
+@media(max-width:520px){.quote-panel{padding:16px}.quote-actions{flex-direction:column}.quote-actions button{width:100%}.quote-line{font-size:12px}}
+</style>
+
+<style id="qamqor-layout-refresh">
+/* Compact, scannable layout: keep the form progressive instead of one long page. */
+html{scroll-padding-top:96px}
+body,body *{-webkit-user-select:auto!important;user-select:auto!important}
+.wrap{width:min(1160px,calc(100% - 40px))}
+.site-header{position:sticky;top:0;z-index:1000;min-height:74px}
+.hero{padding:clamp(38px,5vw,68px) 0 40px;gap:clamp(22px,4vw,48px)}
+.hero h1{font-size:clamp(42px,5.5vw,68px);line-height:1.02}
+.hero .lead{font-size:14px;line-height:1.7}
+.hero-actions{margin-top:22px}
+.art,.premium-art{min-height:350px;max-width:560px;border-radius:28px}
+.services-section{padding:28px 0 48px}
+.section-heading{margin-bottom:22px}
+.section-heading h2{font-size:clamp(27px,3.5vw,40px);margin:10px 0}
+.section-heading p{font-size:13px}
+.service-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.service-card{min-height:188px;padding:18px;border-radius:19px}
+.service-icon{width:42px;height:42px;margin-bottom:14px;border-radius:13px;font-size:22px}
+.service-card-top{top:23px;left:70px;right:17px;font-size:8px}
+.service-card h3{font-size:16px}
+.service-card p{min-height:38px;margin-bottom:12px;font-size:11px}
+.service-card>a{font-size:10px}
+#repair{width:min(860px,100%);margin:0 auto 54px;padding:clamp(19px,3vw,32px);scroll-margin-top:88px}
+.cardhead{margin-bottom:19px}
+.cardhead h2{font-size:clamp(23px,3vw,30px)}
+.wizard-progress{position:sticky;top:88px;z-index:30;margin-bottom:0;padding:13px 16px;background:rgba(9,18,30,.94);backdrop-filter:blur(16px);box-shadow:0 8px 22px rgba(0,0,0,.18)}
+.wizard-step{min-height:250px;align-content:start;gap:15px;padding:20px}
+.wizard-step-heading{padding-bottom:12px}
+.wizard-nav{margin-top:auto;padding-top:8px}
+#serviceMap{height:min(36vh,320px);min-height:230px}
+.notice{scroll-margin-top:100px}
+@media(max-width:900px){
+  .wrap{width:min(100% - 32px,760px)}
+  .hero{grid-template-columns:1fr;text-align:center;justify-items:center;padding:42px 0 30px;gap:20px}
+  .hero-copy{max-width:680px}
+  .hero .lead{margin:0 auto}
+  .hero-actions{justify-content:center}
+  .hero-points{justify-content:center}
+  .art,.premium-art{min-height:270px;max-width:620px;width:100%}
+  .device{width:138px;height:240px}
+  .device-logo{width:70px;height:70px}
+  .service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:620px){
+  .wrap{width:calc(100% - 24px)}
+  .site-header{height:64px;min-height:64px}
+  .hero{padding:28px 0 22px;gap:14px}
+  .hero h1{font-size:clamp(36px,9.5vw,50px);margin:12px 0}
+  .hero .tag{font-size:9px}
+  .hero .lead{font-size:12px;line-height:1.6}
+  .hero-actions{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:8px;margin-top:16px}
+  .hero-cta,.hero-secondary{min-height:44px;width:100%;padding:11px 12px;font-size:11px}
+  .hero-points{grid-template-columns:1fr 1fr;gap:7px 10px;margin-top:14px;font-size:10px;text-align:left}
+  .hero-points span{align-items:flex-start;line-height:1.35}
+  .art,.premium-art{min-height:172px;height:172px;border-radius:18px}
+  .device{width:82px;height:142px;border-width:4px;border-radius:20px;padding:4px}
+  .device-screen{border-radius:13px;gap:4px}
+  .device-logo{width:39px;height:39px;margin-top:8px;border-radius:11px}
+  .device-screen>strong{font-size:8px}
+  .device-screen>span{font-size:5px}
+  .device-check{width:22px;height:22px;font-size:12px;margin-top:3px}
+  .device-camera{width:32px;height:8px;top:5px}
+  .hero-float{padding:7px 9px;gap:6px;border-radius:10px}
+  .hero-float-top{top:8%;left:3%}
+  .hero-float-bottom{right:3%;bottom:14%}
+  .hero-float strong{font-size:7px}
+  .hero-float small{font-size:6px}
+  .float-icon,.float-check{width:22px;height:22px;flex-basis:22px;font-size:11px;border-radius:7px}
+  .art-caption{bottom:8px;font-size:6px;letter-spacing:.15em}
+  .services-section{padding:21px 0 28px}
+  .section-heading{margin-bottom:15px}
+  .section-heading h2{font-size:25px;margin:8px 0}
+  .section-heading p{font-size:11px;line-height:1.5}
+  .service-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .service-card{min-height:150px;padding:12px;border-radius:14px}
+  .service-icon{width:33px;height:33px;margin-bottom:11px;border-radius:10px;font-size:18px}
+  .service-card-top{top:17px;left:54px;right:10px;font-size:6px;letter-spacing:.08em}
+  .service-arrow{font-size:12px}
+  .service-card h3{font-size:12px;line-height:1.25;margin-bottom:5px}
+  .service-card p{min-height:0;font-size:9px;line-height:1.4;margin-bottom:7px}
+  .service-card>a{font-size:9px;gap:5px}
+  #repair{padding:16px 12px;margin-bottom:34px;border-radius:18px}
+  .cardhead{align-items:center;margin-bottom:13px}
+  .cardhead h2{font-size:21px;margin:7px 0 5px}
+  .cardhead .sub{font-size:10px}
+  .step{font-size:8px;padding:7px 8px;flex:0 0 auto}
+  .wizard-progress{top:68px;padding:10px 12px;border-radius:13px}
+  .wizard-progress-line{font-size:10px}
+  .wizard-progress-track{height:4px;margin-top:8px}
+  .wizard-step{min-height:0;gap:12px;padding:14px 11px;border-radius:14px}
+  .wizard-step-heading{gap:9px;padding-bottom:10px}
+  .wizard-step-number{width:33px;height:33px;flex-basis:33px;border-radius:10px;font-size:11px}
+  .wizard-step-heading h3{font-size:13px}
+  .wizard-step-heading p{font-size:10px;line-height:1.4}
+  label{font-size:11px;margin-bottom:7px}
+  input,select,textarea{min-height:45px;padding:11px 12px;border-radius:11px;font-size:13px}
+  textarea{min-height:88px}
+  .wizard-nav{gap:8px;padding-top:4px}
+  .wizard-next,.wizard-back{min-height:42px;padding:10px 12px;font-size:11px}
+  .wizard-first-note{font-size:9px}
+  .map-field{padding:10px;gap:8px}
+  #serviceMap{height:245px;min-height:220px}
+  .map-button,.map-direction{min-height:40px;padding:9px 11px;font-size:10px}
+  #telegramVerifyBox{padding:12px}
+  .verify-provider{min-height:46px;font-size:11px}
+  .notice{font-size:11px;padding:11px}
+  .quote-panel{padding:13px;border-radius:15px}
+  .quote-panel h3{font-size:18px}
+  .quote-line{font-size:11px;padding:8px 0}
+  .quote-total strong{font-size:19px}
+  footer{padding:16px 2px 20px;font-size:9px}
+  body{padding-bottom:78px}
+}
+@media(max-width:370px){
+  .wrap{width:calc(100% - 18px)}
+  .brand{font-size:10px}
+  .hero h1{font-size:35px}
+  .hero-actions{grid-template-columns:1fr}
+  .service-card{min-height:164px;padding:10px}
+  .service-card-top{font-size:7px}
+  .service-card h3{font-size:12px}
+  .service-card p{font-size:10px;line-height:1.4}
+  .wizard-nav{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .qamqor-reveal-ready .qamqor-reveal{opacity:1;transform:none;transition:none}
+}
+</style>
+
+
+<style id="qamqor-page-navigation">
+/* One clear screen at a time, with persistent navigation. */
+main [data-app-page][hidden]{display:none!important}
+main [data-app-page]:not([hidden]){animation:pageIn .28s ease both}
+@keyframes pageIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.site-header .main-nav a{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:38px;padding:9px 13px;border:1px solid transparent;
+  border-radius:999px;color:#a9bfd9;white-space:nowrap;
+}
+.site-header .main-nav a:hover{background:rgba(44,135,224,.12);color:#edf7ff}
+.site-header .main-nav a.is-active{
+  border-color:rgba(92,173,255,.24);
+  background:linear-gradient(135deg,rgba(34,137,239,.22),rgba(24,84,153,.14));
+  color:#fff;box-shadow:inset 0 1px rgba(255,255,255,.07);
+}
+.page-context{
+  display:flex;align-items:center;gap:10px;
+  width:min(1220px,calc(100% - 56px));margin:12px auto 0;padding:0 3px;
+  color:#8fa9c7;font-size:10px;font-weight:800;letter-spacing:.16em;
+}
+.page-context-dot{width:7px;height:7px;border-radius:50%;background:#43d59a;box-shadow:0 0 0 4px rgba(67,213,154,.1)}
+.page-context strong{
+  margin-left:auto;padding:7px 11px;border:1px solid rgba(153,190,232,.15);
+  border-radius:999px;background:rgba(15,28,44,.65);color:#a9d4ff;
+  font-size:9px;letter-spacing:.12em;
+}
+@media(max-width:900px){.page-context{width:min(100% - 36px,760px)}}
+@media(max-width:620px){
+  .page-context{width:calc(100% - 26px);margin-top:9px;font-size:9px}
+  .site-header .main-nav{gap:3px}
+  .site-header .main-nav a{min-height:37px;padding:8px 10px;font-size:9px}
+}
+@media(max-width:370px){
+  .site-header .main-nav{gap:1px;padding:6px}
+  .site-header .main-nav a{padding:8px 8px;font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  main [data-app-page]:not([hidden]){animation:none}
+}
+</style>
+
+
+<style id="qamqor-mobile-nav-position-fix">
+/* On small screens the blurred sticky header was becoming the fixed-nav
+   containing block. Remove that effect so the section bar sits at the viewport bottom. */
+@media(max-width:620px){
+  .site-header{
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+  }
+  .site-header .main-nav{
+    position:fixed!important;
+    top:auto!important;
+    right:auto!important;
+    bottom:calc(env(safe-area-inset-bottom, 0px) + 14px)!important;
+    left:50%!important;
+    z-index:2000!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:max-content!important;
+    max-width:calc(100vw - 20px)!important;
+    margin:0!important;
+    padding:6px!important;
+    gap:3px!important;
+    transform:translateX(-50%)!important;
+    border:1px solid rgba(164,204,247,.24)!important;
+    border-radius:999px!important;
+    background:rgba(8,17,29,.94)!important;
+    -webkit-backdrop-filter:blur(20px) saturate(150%)!important;
+    backdrop-filter:blur(20px) saturate(150%)!important;
+    box-shadow:0 12px 34px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.08)!important;
+  }
+  .site-header .main-nav a{
+    min-height:36px!important;
+    padding:8px 10px!important;
+    font-size:9px!important;
+  }
+  .page-context{margin-top:12px}
+  body{padding-bottom:calc(90px + env(safe-area-inset-bottom, 0px))!important}
+}
+@media(max-width:370px){
+  .site-header .main-nav{gap:1px!important;padding:5px!important}
+  .site-header .main-nav a{padding:8px 7px!important;font-size:8px!important}
+}
+</style>
+
+
+<style id="qamqor-video-background-style">
+/* Full-site silent looping background video */
+#qamqor-video-background{
+  position:fixed;inset:0;z-index:0;overflow:hidden;
+  pointer-events:none;background:#070b12;
+}
+#qamqor-video-background video{
+  position:absolute;inset:0;width:100%;height:100%;
+  display:block;object-fit:cover;object-position:center;
+  opacity:.32;filter:saturate(.82) contrast(1.04);
+}
+#qamqor-video-background .qamqor-video-shade{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(5,10,18,.78),rgba(5,10,18,.70) 48%,rgba(5,10,18,.84)),
+    radial-gradient(ellipse at 50% 18%,rgba(8,22,40,.24),rgba(3,7,13,.52));
+}
+.wrap{position:relative;z-index:1}
+@media(max-width:620px){
+  #qamqor-video-background video{opacity:.22}
+  #qamqor-video-background .qamqor-video-shade{
+    background:linear-gradient(180deg,rgba(5,10,18,.82),rgba(5,10,18,.74) 48%,rgba(5,10,18,.88));
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  #qamqor-video-background video{display:none}
+}
+
+
+/* Make the site surfaces transparent so the R2 video is visible everywhere. */
+html,body{background:transparent!important}
+.site-header,.page-context,.page-context strong,
+.hero,.hero-copy,.services-section,.section-heading,
+.art,.premium-art,.service-card,
+#repair,.card,.cardhead,
+.wizard-progress,.wizard-step,.wizard-step-heading,
+.map-field,#telegramVerifyBox,.quote-panel,.quote-amounts,
+.manager-contact-links,.notice,.point,.choice,
+input,select,textarea,.prefix,
+.hero-float,.main-nav,
+footer,.service-icon,.service-card-top,
+.wizard-step-number,.step{
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+.site-header,.card,.service-card,.wizard-progress,.wizard-step,
+.map-field,#telegramVerifyBox,.quote-panel,.notice,
+input,select,textarea,.choice,.main-nav{
+  border-color:rgba(190,220,255,.30)!important;
+}
+#qamqor-video-background video{
+  opacity:1!important;
+  filter:none!important;
+}
+#qamqor-video-background .qamqor-video-shade{
+  background:transparent!important;
+}
+.hero-copy,.section-heading,.service-card,.card,.page-context,footer{
+  text-shadow:0 1px 7px rgba(0,0,0,.8);
+}
+@media(max-width:620px){
+  .site-header .main-nav{background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+}
+
+/* Remove remaining decorative panel fills as well. Keep action buttons and the logo readable. */
+.art:before,.art:after,.service-card:before,
+.art-grid,.art-glow,.art-orbit{
+  background:transparent!important;background-image:none!important;
+  filter:none!important;opacity:0!important;
+}
+.device,.device-screen,.device-logo,.device-camera,.device b,.device-check,
+.float-icon,.float-check,.service-icon,.choice .ico,
+.phone-model-suggestions,.phone-model-preview,.phone-model-preview button,
+.phone-model-option:hover,.phone-model-option:focus,
+.wizard-progress-track,.wizard-progress-line,
+.map-field,.map-status,.map-help,
+.quote-panel-top,.quote-amounts,.quote-line,
+.manager-contact-links,.notice{
+  background:transparent!important;background-image:none!important;
+  box-shadow:none!important;
+}
+.device,.device-screen,.device-logo,.device-camera,.device b,.device-check,
+.phone-model-suggestions,.phone-model-preview,.phone-model-preview button{
+  border-color:rgba(190,220,255,.35)!important;
+}
+.wizard-progress-track{border:1px solid rgba(190,220,255,.25)!important}
+</style>
+
+<style id="qamqor-video-readable-interface">
+/* Keep the background video visible while preserving strong text contrast. */
+#qamqor-video-background video{
+  opacity:.46!important;
+  filter:saturate(.88) contrast(1.04) brightness(.78)!important;
+}
+#qamqor-video-background .qamqor-video-shade{
+  background:
+    linear-gradient(180deg,rgba(3,9,17,.58),rgba(3,9,17,.48) 48%,rgba(3,9,17,.66)),
+    radial-gradient(ellipse at 50% 18%,rgba(5,18,34,.20),rgba(2,6,12,.40))!important;
+}
+html,body{background:transparent!important}
+.wrap{position:relative;z-index:1}
+.site-header,.main-nav,.page-context,.page-context strong,
+.hero-copy,.section-heading,.service-card,.card,
+.wizard-progress,.wizard-step,.map-field,#telegramVerifyBox,
+.quote-panel,.quote-amounts,.manager-contact-links,.notice,
+.point,.choice,footer{
+  background:rgba(6,14,26,.80)!important;
+  background-image:none!important;
+  border-color:rgba(183,215,249,.28)!important;
+  box-shadow:0 12px 34px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.045)!important;
+  -webkit-backdrop-filter:blur(13px) saturate(125%);
+  backdrop-filter:blur(13px) saturate(125%);
+}
+.hero-copy{
+  padding:clamp(16px,2.2vw,26px);
+  border:1px solid rgba(183,215,249,.25);
+  border-radius:24px;
+}
+.section-heading{
+  padding:clamp(15px,2vw,22px);
+  border:1px solid rgba(183,215,249,.22);
+  border-radius:20px;
+}
+.service-card,.card,.wizard-progress,.wizard-step,.map-field,
+#telegramVerifyBox,.quote-panel,.quote-amounts,.manager-contact-links,.notice{
+  background:rgba(5,13,25,.86)!important;
+}
+input,select,textarea,.prefix{
+  color:#f7fbff!important;
+  background:rgba(5,12,23,.91)!important;
+  border-color:rgba(185,215,246,.34)!important;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.25)!important;
+}
+input::placeholder,textarea::placeholder{
+  color:#b6c6d9!important;
+  opacity:1;
+}
+input:focus,select:focus,textarea:focus{
+  background:rgba(12,30,51,.96)!important;
+  border-color:#67b5ff!important;
+  box-shadow:0 0 0 4px rgba(48,145,245,.22)!important;
+}
+label,.wizard-step-heading h3,.service-card h3,
+.card h2,.quote-panel h3,.page-context,
+.hero-copy h1,.section-heading h2{
+  color:#f7fbff!important;
+  text-shadow:0 2px 8px rgba(0,0,0,.68);
+}
+.lead,.sub,.service-card p,.wizard-step-heading p,
+.map-help,.map-status,.fine,.hero-note,.topnote,
+.point,.optional,.wizard-first-note{
+  color:#d0deee!important;
+  text-shadow:0 1px 5px rgba(0,0,0,.72);
+}
+.service-card,.card,.wizard-step,.wizard-progress,
+.map-field,.quote-panel,.quote-amounts,.manager-contact-links,
+.notice,.hero-copy,.section-heading{
+  min-width:0;
+}
+.service-card p,.wizard-step p,.sub,.lead,.map-help,.fine,.notice{
+  overflow-wrap:anywhere;
+}
+.main-nav{
+  border:1px solid rgba(183,215,249,.25)!important;
+}
+.main-nav a{color:#d2e5fa!important}
+.main-nav a.is-active{
+  background:rgba(25,112,196,.30)!important;
+  border-color:rgba(105,180,250,.55)!important;
+  color:#fff!important;
+}
+footer{
+  border:1px solid rgba(183,215,249,.20);
+  border-radius:16px;
+  padding:18px 16px 22px;
+  color:#c2d1e3!important;
+}
+footer strong{color:#fff!important}
+@media(max-width:900px){
+  .hero-copy{padding:20px}
+}
+@media(max-width:620px){
+  #qamqor-video-background video{
+    opacity:.32!important;
+    filter:saturate(.82) contrast(1.03) brightness(.68)!important;
+  }
+  #qamqor-video-background .qamqor-video-shade{
+    background:linear-gradient(180deg,rgba(3,9,17,.66),rgba(3,9,17,.57) 48%,rgba(3,9,17,.73))!important;
+  }
+  .hero-copy,.section-heading{
+    padding:15px 13px;
+    border-radius:18px;
+  }
+  .site-header,.main-nav,.page-context,.page-context strong{
+    background:rgba(5,12,23,.94)!important;
+  }
+  .service-card,.card,.wizard-progress,.wizard-step,
+  .map-field,#telegramVerifyBox,.quote-panel,.quote-amounts,
+  .manager-contact-links,.notice,.point,.choice,footer{
+    background:rgba(5,12,23,.92)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  #qamqor-video-background video{opacity:.24!important}
+}
+</style>
+
+
+<style id="qamqor-transparent-video-text">
+/* Fully reveal the video; keep only text contrast, outlines and functional controls. */
+#qamqor-video-background video{
+  opacity:1!important;
+  filter:none!important;
+}
+#qamqor-video-background .qamqor-video-shade{
+  background:transparent!important;
+}
+html,body{background:transparent!important}
+.site-header,.main-nav,.page-context,.page-context strong,
+.hero-copy,.section-heading,.services-section,.service-card,
+.card,.cardhead,.wizard-progress,.wizard-step,.wizard-step-heading,
+.map-field,#telegramVerifyBox,.quote-panel,.quote-amounts,
+.manager-contact-links,.notice,.point,.choice,footer,
+.hero-float,.service-icon,.service-card-top,.wizard-step-number,.step{
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  box-shadow:none!important;
+}
+.site-header,.main-nav,.page-context,.page-context strong,
+.hero-copy,.section-heading,.service-card,.card,
+.wizard-progress,.wizard-step,.map-field,#telegramVerifyBox,
+.quote-panel,.quote-amounts,.manager-contact-links,.notice,
+.point,.choice,footer{
+  border-color:transparent!important;
+}
+.hero-copy,.section-heading,.service-card,.card,
+.wizard-progress,.wizard-step,.map-field,#telegramVerifyBox,
+.quote-panel,.quote-amounts,.manager-contact-links,.notice,
+.page-context,footer{
+  text-shadow:0 2px 5px rgba(0,0,0,.98),0 0 12px rgba(0,0,0,.92)!important;
+}
+h1,h2,h3,h4,p,span,label,strong,small,a,
+.wizard-step-heading,.sub,.lead,.fine,.map-help,.map-status{
+  text-shadow:0 2px 5px rgba(0,0,0,.98),0 0 10px rgba(0,0,0,.95)!important;
+}
+input,select,textarea,.prefix{
+  color:#fff!important;
+  background:rgba(0,0,0,.10)!important;
+  border:1px solid rgba(255,255,255,.48)!important;
+  box-shadow:none!important;
+  text-shadow:0 1px 3px rgba(0,0,0,.95)!important;
+}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.88)!important}
+input:focus,select:focus,textarea:focus{
+  background:rgba(0,0,0,.18)!important;
+  border-color:#8dcaff!important;
+  box-shadow:0 0 0 2px rgba(88,171,255,.30)!important;
+}
+.choice{border:1px solid rgba(255,255,255,.42)!important}
+.choice.active{border-color:#81c3ff!important;background:rgba(9,94,165,.16)!important}
+.main-nav a{color:#fff!important}
+.main-nav a.is-active{
+  background:rgba(10,112,210,.18)!important;
+  border-color:rgba(145,205,255,.48)!important;
+}
+.hero-cta,.submit,.wizard-next,.whatsapp-submit,
+.map-button,.map-direction,.manager-contact{
+  text-shadow:0 1px 3px rgba(0,0,0,.55)!important;
+}
+#serviceMap{background:#20242b}
+@media(max-width:620px){
+  #qamqor-video-background video{opacity:1!important;filter:none!important}
+  .site-header,.main-nav,.page-context,.page-context strong,
+  .hero-copy,.section-heading,.service-card,.card,
+  .wizard-progress,.wizard-step,.map-field,#telegramVerifyBox,
+  .quote-panel,.quote-amounts,.manager-contact-links,.notice,
+  .point,.choice,footer{
+    background:transparent!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    box-shadow:none!important;
+  }
+}
+</style>
+
+
+<style id="qamqor-phone-only-hero">
+/* Remove the decorative rectangle and labels; keep the floating animated phone. */
+.art,.premium-art{
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  perspective:1000px;
+}
+.art-grid,.art-orbit,.art-glow,
+.hero-float,.art-caption{
+  display:none!important;
+}
+/* Keep the logo itself, without the separate square tile behind it. */
+.device-logo{
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+.device-logo img{
+  object-fit:contain;
+}
+.device{
+  animation:qPhoneFloat 6.5s ease-in-out infinite!important;
+}
+@media(max-width:620px){
+  .art,.premium-art{
+    min-height:172px!important;
+    height:172px!important;
+    background:transparent!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+}
+</style>
+
+
+<style id="qamqor-rounded-phone-logo">
+/* Keep the logo tile transparent, but give the image itself softly rounded edges. */
+.device-logo{
+  width:94px!important;
+  height:94px!important;
+  border:0!important;
+  border-radius:25px!important;
+  background:transparent!important;
+  overflow:hidden!important;
+  box-shadow:0 5px 18px rgba(12,42,78,.18)!important;
+  clip-path:inset(0 round 25px);
+}
+.device-logo img{
+  display:block;
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  border:0!important;
+  border-radius:25px!important;
+  clip-path:inset(0 round 25px);
+}
+@media(max-width:620px){
+  .device-logo{
+    width:39px!important;
+    height:39px!important;
+    border-radius:12px!important;
+    clip-path:inset(0 round 12px);
+    box-shadow:0 3px 10px rgba(12,42,78,.18)!important;
+  }
+  .device-logo img{
+    border-radius:12px!important;
+    clip-path:inset(0 round 12px);
+  }
+}
+</style>
+
+
+<style id="qamqor-one-screen-layout">
+/* One-screen app layout: the page itself never zooms or scrolls vertically. */
+html,body{
+  width:100%;
+  height:100%!important;
+  min-height:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+  scroll-behavior:auto!important;
+}
+body{
+  height:100vh!important;
+  height:100dvh!important;
+  padding:0!important;
+}
+.wrap{
+  width:min(1600px,calc(100% - 64px))!important;
+  height:100vh!important;
+  height:100dvh!important;
+  min-height:0!important;
+  max-height:100dvh!important;
+  margin:0 auto!important;
+  display:grid!important;
+  grid-template-rows:68px minmax(0,1fr) 32px!important;
+  overflow:hidden!important;
+}
+.site-header{
+  min-height:0!important;
+  height:68px!important;
+  position:relative!important;
+  top:auto!important;
+  overflow:visible!important;
+}
+main{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto minmax(0,1fr)!important;
+  min-height:0!important;
+  height:100%!important;
+  overflow:hidden!important;
+}
+.page-context{
+  min-height:20px!important;
+  margin:5px 0!important;
+}
+main [data-app-page][hidden]{display:none!important}
+main [data-app-page]:not([hidden]){
+  grid-column:1!important;
+  grid-row:2!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:100%!important;
+  margin:0!important;
+  animation:none!important;
+  transform:none!important;
+}
+.hero{
+  min-height:0!important;
+  height:100%!important;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)!important;
+  grid-template-rows:minmax(0,1fr)!important;
+  align-items:center!important;
+  gap:clamp(18px,3vw,44px)!important;
+  padding:clamp(10px,2vh,24px) 0!important;
+  overflow:hidden!important;
+}
+.hero-copy{
+  min-width:0!important;
+  max-height:100%!important;
+  padding:0!important;
+  margin:0!important;
+}
+.hero h1{
+  margin:12px 0 14px!important;
+  font-size:clamp(38px,5.2vw,70px)!important;
+  line-height:1.02!important;
+  letter-spacing:-.065em!important;
+}
+.hero h1 span{
+  color:#9bd0ff!important;
+  background:linear-gradient(105deg,#54b2ff 4%,#d2ebff 55%,#a9b7ff 100%)!important;
+  background-clip:text!important;
+  -webkit-background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  text-shadow:none!important;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.55));
+}
+.hero .lead{
+  max-width:620px!important;
+  font-size:clamp(12px,1.05vw,15px)!important;
+  line-height:1.55!important;
+}
+.hero-actions{margin-top:16px!important;gap:10px!important;flex-wrap:wrap!important}
+.hero-cta,.hero-secondary{min-height:36px!important;padding:12px 19px!important;font-size:12px!important}
+.hero-points{gap:7px!important;margin-top:14px!important;font-size:10px!important}
+.hero-points span{line-height:1.35!important}
+.art,.premium-art{
+  width:100%!important;
+  height:min(62vh,520px)!important;
+  min-height:0!important;
+  max-height:100%!important;
+  max-width:560px!important;
+  justify-self:center!important;
+  margin:0!important;
+  overflow:visible!important;
+}
+footer{
+  min-height:0!important;
+  height:32px!important;
+  margin:0!important;
+  padding:5px 2px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  overflow:hidden!important;
+  white-space:nowrap!important;
+  font-size:9px!important;
+}
+.qamqor-reveal-ready .qamqor-reveal,
+.qamqor-reveal-ready .qamqor-reveal.qamqor-visible{
+  opacity:1!important;
+  transform:none!important;
+  transition:none!important;
+}
+/* The service cards share one viewport instead of extending the document. */
+.services-section{
+  height:100%!important;
+  min-height:0!important;
+  padding:8px 0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+}
+.section-heading{
+  flex:0 0 auto!important;
+  margin:0 auto 10px!important;
+  padding:5px 10px!important;
+}
+.section-heading h2{font-size:clamp(23px,3vw,36px)!important;margin:6px 0!important}
+.section-heading p{font-size:12px!important;line-height:1.4!important}
+.service-grid{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  grid-template-rows:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+.service-card{
+  min-height:0!important;
+  height:100%!important;
+  padding:14px!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+.service-icon{width:36px!important;height:36px!important;margin-bottom:7px!important}
+.service-card-top{top:18px!important;left:61px!important;right:12px!important}
+.service-card h3{font-size:14px!important;margin:0 0 5px!important}
+.service-card p{min-height:0!important;font-size:10px!important;line-height:1.4!important;margin:0 0 8px!important}
+.service-card>a{margin-top:auto!important}
+/* The request wizard scrolls inside its own panel only when a step needs it. */
+#repair{
+  height:100%!important;
+  max-height:100%!important;
+  min-height:0!important;
+  margin:0 auto!important;
+  padding:12px 18px!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+}
+#repair .cardhead{margin-bottom:10px!important}
+#repair .wizard-progress{position:relative!important;top:auto!important;margin-bottom:0!important;padding:9px 12px!important}
+#repair .wizard-step{min-height:0!important;gap:10px!important;padding:12px!important}
+#repair .wizard-step-heading{padding-bottom:8px!important}
+#repair #serviceMap{height:min(25vh,210px)!important;min-height:145px!important}
+@media(max-width:900px){
+  .wrap{width:calc(100% - 32px)!important;grid-template-rows:60px minmax(0,1fr) 28px!important}
+  .site-header{height:60px!important;min-height:60px!important}
+  .hero{
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:minmax(0,1fr) auto!important;
+    text-align:center!important;
+    justify-items:center!important;
+    gap:5px!important;
+    padding:5px 0!important;
+  }
+  .hero-copy{width:100%!important;align-self:center!important}
+  .hero .lead{margin:0 auto!important}
+  .hero-actions{justify-content:center!important;margin-top:12px!important}
+  .hero-points{display:none!important}
+  .art,.premium-art{height:clamp(110px,18vh,165px)!important;min-height:0!important;max-width:100%!important}
+  .services-section{padding:5px 0!important}
+  .section-heading{margin-bottom:7px!important}
+  .service-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:repeat(3,minmax(0,1fr))!important;gap:7px!important}
+  .service-card{padding:10px!important}
+  .service-icon{width:30px!important;height:30px!important;margin-bottom:4px!important}
+  .service-card-top{top:13px!important;left:48px!important;font-size:6px!important}
+  .service-card h3{font-size:12px!important}
+  .service-card p{font-size:9px!important}
+}
+@media(max-width:620px){
+  .wrap{width:calc(100% - 20px)!important;grid-template-rows:56px minmax(0,1fr) 0px!important}
+  .site-header{height:56px!important;min-height:56px!important}
+  .brand{font-size:10px!important;gap:7px!important}
+  .brand small{font-size:6px!important}
+  .mark{width:34px!important;height:34px!important;flex-basis:34px!important}
+  .header-right{display:none!important}
+  .main-nav{
+    position:fixed!important;
+    top:auto!important;
+    bottom:calc(env(safe-area-inset-bottom,0px) + 8px)!important;
+    left:50%!important;
+    right:auto!important;
+    z-index:3000!important;
+    transform:translateX(-50%)!important;
+    width:max-content!important;
+    max-width:calc(100vw - 16px)!important;
+    margin:0!important;
+  }
+  .main-nav a{font-size:9px!important;padding:7px 9px!important}
+  .page-context{margin:3px 0!important;min-height:17px!important;font-size:8px!important}
+  .hero h1{font-size:clamp(30px,8.3vw,42px)!important;margin:8px 0 9px!important}
+  .hero .tag{font-size:8px!important}
+  .hero .lead{font-size:11px!important;line-height:1.4!important}
+  .hero-actions{display:flex!important;gap:7px!important;margin-top:10px!important}
+  .hero-cta,.hero-secondary{flex:1 1 0!important;min-height:40px!important;padding:9px 8px!important;font-size:10px!important}
+  .art,.premium-art{height:clamp(100px,15vh,132px)!important}
+  .device{width:68px!important;height:118px!important}
+  .device-logo{width:39px!important;height:39px!important}
+  footer{display:none!important}
+  #repair{padding:10px!important}
+  #repair .cardhead h2{font-size:19px!important}
+  #repair .wizard-step{padding:10px!important}
+}
+@media(max-height:700px) and (min-width:901px){
+  .wrap{grid-template-rows:58px minmax(0,1fr) 26px!important}
+  .site-header{height:58px!important;min-height:58px!important}
+  .hero{padding:5px 0!important}
+  .hero h1{font-size:clamp(34px,4.4vw,58px)!important;margin:8px 0!important}
+  .hero .lead{font-size:12px!important;line-height:1.4!important}
+  .hero-actions{margin-top:9px!important}
+  .hero-points{margin-top:8px!important}
+  .art,.premium-art{height:56vh!important}
+}
+</style>
+
+
+<style id="qamqor-laptop-hero-fit">
+/* Laptop-only hero correction. Mobile layout below remains unchanged. */
+@media(min-width:901px){
+  .hero{
+    grid-template-columns:minmax(0,1.05fr) minmax(300px,.85fr)!important;
+    align-items:center!important;
+    gap:clamp(18px,2.5vw,38px)!important;
+    padding:clamp(8px,1.5vh,18px) 0!important;
+  }
+  .art,.premium-art{
+    height:min(58vh,430px)!important;
+    min-height:0!important;
+    max-height:100%!important;
+    display:grid!important;
+    place-items:center!important;
+    align-self:center!important;
+    justify-self:center!important;
+    overflow:visible!important;
+  }
+  .device{
+    width:clamp(154px,12vw,184px)!important;
+    height:clamp(270px,42vh,320px)!important;
+    flex:0 0 auto!important;
+    position:relative!important;
+    top:0!important;
+    margin:0!important;
+    transform:translateY(-12px) rotate(-8deg)!important;
+    animation:none!important;
+    transition:none!important;
+  }
+}
+@media(min-width:901px) and (max-height:850px){
+  .wrap{grid-template-rows:58px minmax(0,1fr) 24px!important}
+  .site-header{height:58px!important;min-height:58px!important}
+  .page-context{min-height:17px!important;margin:2px 0!important;font-size:9px!important}
+  .hero{gap:clamp(14px,2vw,28px)!important;padding:4px 0!important}
+  .hero h1{
+    font-size:clamp(34px,4.4vw,60px)!important;
+    line-height:1.0!important;
+    margin:8px 0 11px!important;
+  }
+  .hero .lead{font-size:clamp(11px,.95vw,13px)!important;line-height:1.45!important}
+  .hero-actions{margin-top:12px!important;gap:8px!important}
+  .hero-cta,.hero-secondary{min-height:42px!important;padding:10px 16px!important;font-size:11px!important}
+  .hero-points{gap:5px!important;margin-top:9px!important;font-size:9px!important}
+  .art,.premium-art{height:min(55vh,390px)!important}
+  .device{
+    width:clamp(145px,11.5vw,172px)!important;
+    height:clamp(250px,39vh,292px)!important;
+    transform:translateY(-10px) rotate(-8deg)!important;
+  }
+}
+</style>
+
+
+<style id="qamqor-home-phone-only-final">
+/* Keep the moving video visible behind a custom, touch-controlled QAMQOR phone. */
+html,body{background:transparent!important}
+#qamqor-video-background{
+  background:transparent!important;
+  z-index:0!important;
+}
+#qamqor-video-background video{
+  opacity:1!important;
+  filter:none!important;
+}
+#qamqor-video-background .qamqor-video-shade{
+  background:transparent!important;
+}
+.wrap{position:relative!important;z-index:1!important;background:transparent!important}
+.site-header .header-right,footer{display:none!important}
+.site-header{
+  display:flex!important;
+  justify-content:flex-start!important;
+  align-items:center!important;
+  height:68px!important;
+  min-height:68px!important;
+  padding:0 4px!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+.wrap{
+  width:min(1600px,calc(100% - 64px))!important;
+  height:100vh!important;
+  height:100dvh!important;
+  min-height:0!important;
+  max-height:100dvh!important;
+  margin:0 auto!important;
+  display:grid!important;
+  grid-template-rows:68px minmax(0,1fr)!important;
+  overflow:hidden!important;
+}
+main{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:minmax(0,1fr)!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:100%!important;
+  overflow:hidden!important;
+  background:transparent!important;
+}
+main [data-app-page]:not([hidden]){
+  grid-column:1!important;
+  grid-row:1!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-height:100%!important;
+  margin:0!important;
+  background:transparent!important;
+}
+.hero#top{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:minmax(0,1fr)!important;
+  place-items:center!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  gap:0!important;
+  overflow:visible!important;
+  background:transparent!important;
+}
+.hero#top .premium-art{
+  display:grid!important;
+  place-items:center!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:none!important;
+  max-height:100%!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:visible!important;
+  isolation:isolate!important;
+  perspective:1500px!important;
+  perspective-origin:50% 50%!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.hero#top .device{
+  position:relative!important;
+  display:block!important;
+  align-self:center!important;
+  justify-self:center!important;
+  flex:0 0 auto!important;
+  width:clamp(194px,19vw,250px)!important;
+  height:clamp(370px,65vh,500px)!important;
+  max-height:calc(100dvh - 112px)!important;
+  margin:0!important;
+  padding:0!important;
+  box-sizing:border-box!important;
+  overflow:visible!important;
+  border:3px solid #aeb9c8!important;
+  border-radius:45px!important;
+  background:linear-gradient(110deg,#3c4654 0%,#dbe3eb 16%,#697789 34%,#283443 52%,#d8e0e9 78%,#647184 100%)!important;
+  box-shadow:
+    0 0 0 1px rgba(9,15,24,.95),
+    0 0 0 3px rgba(176,191,208,.68),
+    0 28px 70px rgba(0,0,0,.48),
+    0 0 48px rgba(107,176,255,.16),
+    inset 0 0 0 1px rgba(255,255,255,.72)!important;
+  transform-style:preserve-3d!important;
+  transform-origin:center center!important;
+  transform:perspective(1400px) rotateX(2deg) rotateY(0deg) rotateZ(-1deg)!important;
+  animation:none!important;
+  transition:transform 120ms ease-out!important;
+  will-change:transform!important;
+  cursor:grab!important;
+  touch-action:none!important;
+  user-select:none!important;
+  -webkit-user-select:none!important;
+}
+.hero#top .device:active{cursor:grabbing!important}
+.hero#top .device-screen{
+  position:absolute!important;
+  inset:5px!important;
+  z-index:3!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex-direction:column!important;
+  gap:clamp(9px,1.4vh,15px)!important;
+  width:auto!important;
+  height:auto!important;
+  margin:0!important;
+  padding:30px 12px!important;
+  border:1px solid rgba(255,255,255,.3)!important;
+  border-radius:37px!important;
+  overflow:hidden!important;
+  background:
+    linear-gradient(155deg,rgba(7,17,31,.20),rgba(10,25,44,.35) 55%,rgba(5,14,28,.24))!important;
+  background-color:rgba(7,17,31,.18)!important;
+  color:#f6fbff!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12),inset 0 -16px 40px rgba(0,0,0,.10)!important;
+  -webkit-backdrop-filter:blur(1.5px)!important;
+  backdrop-filter:blur(1.5px)!important;
+  transform:translateZ(8px)!important;
+  backface-visibility:hidden!important;
+}
+.hero#top .device-logo{
+  display:grid!important;
+  place-items:center!important;
+  width:clamp(78px,7.4vw,104px)!important;
+  height:clamp(78px,7.4vw,104px)!important;
+  flex:0 0 auto!important;
+  margin:14px 0 0!important;
+  padding:0!important;
+  border:1px solid rgba(255,255,255,.35)!important;
+  border-radius:23px!important;
+  background:rgba(255,255,255,.92)!important;
+  overflow:hidden!important;
+  box-shadow:0 12px 32px rgba(0,0,0,.22)!important;
+}
+.hero#top .device-logo img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  border:0!important;
+  border-radius:inherit!important;
+}
+.hero#top .device-screen>strong{
+  color:#fff!important;
+  font-size:clamp(15px,1.5vw,19px)!important;
+  font-weight:900!important;
+  letter-spacing:.16em!important;
+  text-shadow:0 2px 12px rgba(0,0,0,.8)!important;
+}
+.hero#top .device-screen>span{
+  color:#d9eaff!important;
+  font-size:clamp(7px,.7vw,9px)!important;
+  font-weight:850!important;
+  letter-spacing:.27em!important;
+  text-shadow:0 2px 8px rgba(0,0,0,.85)!important;
+}
+.hero#top .device-apply{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:148px!important;
+  min-height:49px!important;
+  margin-top:12px!important;
+  padding:12px 15px!important;
+  border:1px solid rgba(255,255,255,.38)!important;
+  border-radius:999px!important;
+  color:#fff!important;
+  background:linear-gradient(135deg,#299eff,#075fc8)!important;
+  box-shadow:0 10px 26px rgba(0,91,190,.32),inset 0 1px rgba(255,255,255,.27)!important;
+  font:850 13px/1.1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  letter-spacing:0!important;
+  text-decoration:none!important;
+  white-space:nowrap!important;
+  cursor:pointer!important;
+  text-shadow:none!important;
+  transform:translateZ(2px)!important;
+  touch-action:manipulation!important;
+}
+.hero#top .device-apply:hover{background:linear-gradient(135deg,#55b5ff,#0872df)!important}
+.hero#top .device-camera{
+  position:absolute!important;
+  z-index:5!important;
+  top:16px!important;
+  left:50%!important;
+  width:78px!important;
+  height:23px!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  border-radius:99px!important;
+  background:#030508!important;
+  box-shadow:inset 0 1px 4px #000,0 1px 0 rgba(255,255,255,.35)!important;
+  transform:translateX(-50%) translateZ(12px)!important;
+  backface-visibility:hidden!important;
+}
+.hero#top .device-camera:after{
+  content:""!important;
+  position:absolute!important;
+  right:10px!important;
+  top:7px!important;
+  width:9px!important;
+  height:9px!important;
+  border-radius:50%!important;
+  background:radial-gradient(circle at 35% 35%,#9bd2ff,#28628d 55%,#080e17 72%)!important;
+  box-shadow:0 0 5px rgba(60,160,255,.4)!important;
+}
+.hero#top .device-back{
+  position:absolute!important;
+  inset:5px!important;
+  z-index:2!important;
+  display:block!important;
+  border:1px solid rgba(255,255,255,.18)!important;
+  border-radius:37px!important;
+  overflow:hidden!important;
+  background:
+    radial-gradient(ellipse at 52% 52%,rgba(255,255,255,.10),transparent 48%),
+    linear-gradient(145deg,rgba(50,62,78,.92),rgba(15,25,39,.94) 55%,rgba(78,91,108,.92))!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.10),inset 0 -20px 45px rgba(0,0,0,.22)!important;
+  transform:rotateY(180deg) translateZ(8px)!important;
+  backface-visibility:hidden!important;
+}
+.hero#top .device-back-camera{
+  position:absolute!important;
+  top:6%!important;
+  left:6%!important;
+  width:39%!important;
+  height:25%!important;
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  align-items:center!important;
+  justify-items:center!important;
+  gap:3px!important;
+  padding:7px!important;
+  border:1px solid rgba(255,255,255,.22)!important;
+  border-radius:22px!important;
+  background:linear-gradient(145deg,#8593a6,#303d4f)!important;
+  box-shadow:0 8px 19px rgba(0,0,0,.35),inset 0 1px 2px rgba(255,255,255,.3)!important;
+}
+.hero#top .device-back-camera i{
+  display:block!important;
+  width:clamp(19px,2.1vw,28px)!important;
+  aspect-ratio:1!important;
+  border:3px solid #9aa9bc!important;
+  border-radius:50%!important;
+  background:radial-gradient(circle at 35% 32%,#8dc9f7 0 7%,#1d3249 34%,#03080f 72%)!important;
+  box-shadow:0 2px 5px #000!important;
+}
+.hero#top .device-back-camera:after{
+  content:""!important;
+  width:9px!important;
+  height:9px!important;
+  justify-self:center!important;
+  align-self:center!important;
+  border-radius:50%!important;
+  background:#edf3cb!important;
+  box-shadow:0 0 9px rgba(255,245,180,.7)!important;
+}
+.hero#top .device-back-logo{
+  position:absolute!important;
+  top:49%!important;
+  left:50%!important;
+  display:grid!important;
+  place-items:center!important;
+  width:62px!important;
+  height:62px!important;
+  border:1px solid rgba(255,255,255,.28)!important;
+  border-radius:20px!important;
+  color:#f4f9ff!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(0,0,0,.16))!important;
+  font:900 29px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  transform:translate(-50%,-50%)!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.18)!important;
+}
+.hero#top .device-back-word{
+  position:absolute!important;
+  left:0!important;
+  right:0!important;
+  bottom:14%!important;
+  color:rgba(236,245,255,.75)!important;
+  font:800 9px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  letter-spacing:.28em!important;
+  text-align:center!important;
+}
+.hero#top .device-side{
+  position:absolute!important;
+  z-index:1!important;
+  display:block!important;
+  width:5px!important;
+  border-radius:4px!important;
+  background:linear-gradient(90deg,#4a5665,#d9e1ec,#667282)!important;
+  box-shadow:0 1px 3px #0008!important;
+  transform:translateZ(0)!important;
+}
+.hero#top .device-side-volume{left:-8px!important;top:23%!important;height:74px!important}
+.hero#top .device-side-power{right:-8px!important;top:29%!important;height:57px!important}
+.hero#top .device:before{
+  content:""!important;
+  position:absolute!important;
+  z-index:6!important;
+  inset:5px!important;
+  border-radius:37px!important;
+  background:linear-gradient(112deg,transparent 24%,rgba(255,255,255,.20) 46%,transparent 65%)!important;
+  pointer-events:none!important;
+  transform:translateZ(10px)!important;
+  backface-visibility:hidden!important;
+}
+.hero#top .device:after{content:none!important}
+.hero#top .device-shine{
+  position:absolute!important;
+  z-index:7!important;
+  inset:5px!important;
+  border-radius:37px!important;
+  background:linear-gradient(120deg,transparent 32%,rgba(255,255,255,.15) 48%,transparent 63%)!important;
+  pointer-events:none!important;
+  transform:translateZ(11px)!important;
+  backface-visibility:hidden!important;
+}
+@media(max-width:900px){
+  .wrap{width:calc(100% - 36px)!important}
+  .hero#top .device{
+    width:clamp(180px,27vw,220px)!important;
+    height:clamp(330px,61vh,430px)!important;
+    max-height:calc(100dvh - 108px)!important;
+  }
+  .hero#top .device-screen{gap:10px!important;padding:22px 10px!important}
+  .hero#top .device-logo{width:82px!important;height:82px!important}
+  .hero#top .device-apply{width:132px!important;min-height:45px!important;font-size:12px!important}
+}
+@media(max-width:620px){
+  .wrap{width:calc(100% - 24px)!important}
+  .site-header{height:62px!important;min-height:62px!important}
+  .hero#top .device{
+    width:clamp(165px,48vw,205px)!important;
+    height:clamp(300px,60vh,410px)!important;
+    max-height:calc(100dvh - 102px)!important;
+    border-radius:39px!important;
+  }
+  .hero#top .device-screen,.hero#top .device-back{border-radius:32px!important}
+  .hero#top .device-logo{width:72px!important;height:72px!important;margin-top:10px!important}
+  .hero#top .device-screen{gap:8px!important;padding:15px 8px!important}
+  .hero#top .device-screen>strong{font-size:14px!important}
+  .hero#top .device-screen>span{font-size:7px!important}
+  .hero#top .device-apply{width:122px!important;min-height:41px!important;margin-top:8px!important;font-size:11px!important}
+  .hero#top .device-camera{top:14px!important;width:65px!important;height:20px!important}
+  .hero#top .device-back-logo{width:45px!important;height:45px!important;font-size:23px!important}
+}
+@media(max-height:700px) and (min-width:621px){
+  .hero#top .device{
+    width:clamp(170px,19vw,230px)!important;
+    height:clamp(290px,59vh,430px)!important;
+  }
+}
+</style>
+
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@4.4.0/dist/model-viewer.min.js"></script>
+
+<style id="qamqor-glb-phone-viewer">
+/* Use the uploaded GLB as the real phone. Transparent canvas lets the video remain visible. */
+.hero#top .premium-art{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:clamp(6px,1.2vh,12px)!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:100%!important;
+  overflow:visible!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  perspective:none!important;
+}
+.hero#top .qamqor-phone-model{
+  display:block!important;
+  width:min(100%,560px)!important;
+  height:min(72vh,620px,calc(100dvh - 136px))!important;
+  min-height:260px!important;
+  max-height:calc(100dvh - 130px)!important;
+  flex:1 1 auto!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  --poster-color:transparent;
+  --progress-bar-color:#72bdff;
+  --progress-bar-height:2px;
+  touch-action:none!important;
+  cursor:grab!important;
+  outline:none!important;
+}
+.hero#top .qamqor-phone-model:active{cursor:grabbing!important}
+@media(max-width:900px){
+  .hero#top .qamqor-phone-model{
+    width:min(100%,520px)!important;
+    height:min(66vh,540px,calc(100dvh - 150px))!important;
+    min-height:245px!important;
+    max-height:calc(100dvh - 140px)!important;
+  }
+}
+@media(max-width:620px){
+  .hero#top .premium-art{gap:5px!important}
+  .hero#top .qamqor-phone-model{
+    width:min(100%,420px)!important;
+    height:min(63vh,520px,calc(100dvh - 145px))!important;
+    min-height:220px!important;
+    max-height:calc(100dvh - 135px)!important;
+  }
+}
+@media(max-height:650px) and (min-width:621px){
+  .hero#top .qamqor-phone-model{
+    height:min(62vh,calc(100dvh - 120px))!important;
+    min-height:215px!important;
+  }
+}
+</style>
+<style id="qamqor-mobile-apply-hitbox">
+/* Transparent front-facing touch target attached to the physical GLB button. */
+.hero#top .qamqor-phone-model .qamqor-apply-hitbox {
+  display:block!important;
+  width:min(34vw,190px)!important;
+  height:40px!important;
+  min-height:40px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:999px!important;
+  background:rgba(255,255,255,.001)!important;
+  color:transparent!important;
+  opacity:.001!important;
+  box-shadow:none!important;
+  pointer-events:auto!important;
+  cursor:pointer!important;
+  touch-action:manipulation!important;
+  -webkit-tap-highlight-color:transparent!important;
+  outline:0!important;
+}
+@media(max-width:620px) {
+  .hero#top .qamqor-phone-model .qamqor-apply-hitbox {
+    width:min(34vw,150px)!important;
+    height:46px!important;
+    min-height:36px!important;
+  }
+}
+
+.hero#top .qamqor-phone-model.qamqor-request-open .qamqor-apply-hitbox{
+  display:none!important;
+  pointer-events:none!important;
+}
+/* Keep the request form reachable within the phone viewport. */
+@media(max-width:760px) {
+  main [data-app-page]:not([hidden]) {
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior-y:contain;
+    touch-action:pan-y;
+  }
+}
+</style>
+
+
+
+
+<style id="qamqor-phone-form-overlay-style">
+/* The form is projected onto the measured physical display only while the request is open. */
+.qamqor-screen-probe{
+  display:block!important;
+  width:1px!important;
+  height:1px!important;
+  min-width:1px!important;
+  min-height:1px!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+/* No page, background, or 3D viewer sizing changes when the request form opens. */
+.qamqor-phone-form-overlay[hidden]{display:none!important}
+.qamqor-phone-form-overlay{
+  position:fixed!important;
+  left:0!important;
+  top:0!important;
+  z-index:20000!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:4% / 5.5%!important;
+  background:#030407!important;
+  box-shadow:none!important;
+  color:#f5f8ff!important;
+  pointer-events:auto!important;
+  transform-origin:0 0!important;
+  will-change:transform,width,height;
+}
+.qamqor-phone-form-content{
+  position:absolute!important;
+  z-index:2!important;
+  inset:0!important;
+  min-width:0!important;
+  min-height:0!important;
+  overflow:hidden!important;
+  border-radius:inherit!important;
+  background:transparent!important;
+}
+.qamqor-phone-form-close{
+  position:absolute!important;
+  z-index:5!important;
+  top:7px!important;
+  right:8px!important;
+  width:29px!important;
+  height:29px!important;
+  min-height:29px!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:0!important;
+  border:1px solid rgba(220,235,255,.35)!important;
+  border-radius:50%!important;
+  color:#fff!important;
+  background:rgba(7,15,27,.88)!important;
+  box-shadow:0 2px 9px rgba(0,0,0,.25)!important;
+  font:400 22px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  cursor:pointer!important;
+  touch-action:manipulation!important;
+}
+#repair.qamqor-phone-form-card[hidden]{display:none!important}
+#repair.qamqor-phone-form-card{
+  position:absolute!important;
+  inset:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:none!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:42px 12px 12px!important;
+  border:0!important;
+  border-radius:inherit!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
+  scrollbar-width:thin!important;
+  scrollbar-color:rgba(130,180,230,.55) transparent!important;
+}
+#repair.qamqor-phone-form-card .cardhead{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:space-between!important;
+  gap:7px!important;
+  margin:0 0 9px!important;
+  padding:0 23px 8px 0!important;
+  border-bottom:1px solid rgba(205,225,255,.16)!important;
+}
+#repair.qamqor-phone-form-card .cardhead>div:first-child{min-width:0!important}
+#repair.qamqor-phone-form-card .cardhead .tag{font-size:7px!important;letter-spacing:.13em!important}
+#repair.qamqor-phone-form-card .cardhead h2{
+  margin:3px 0 2px!important;
+  font-size:clamp(11px,3.2vw,15px)!important;
+  line-height:1.1!important;
+  letter-spacing:-.04em!important;
+}
+#repair.qamqor-phone-form-card .cardhead .sub{font-size:8px!important;line-height:1.3!important}
+#repair.qamqor-phone-form-card .step{
+  flex:0 0 auto!important;
+  padding:5px 7px!important;
+  border-radius:99px!important;
+  font-size:7px!important;
+  letter-spacing:.04em!important;
+}
+#repair.qamqor-phone-form-card #repairForm{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:8px!important;
+  min-width:0!important;
+}
+#repair.qamqor-phone-form-card .wizard-progress{
+  margin:0!important;
+  padding:8px 10px!important;
+  border-radius:11px!important;
+}
+#repair.qamqor-phone-form-card .wizard-progress-line{font-size:8px!important}
+#repair.qamqor-phone-form-card .wizard-progress-track{height:4px!important;margin-top:7px!important}
+#repair.qamqor-phone-form-card .wizard-step{
+  min-width:0!important;
+  padding:10px!important;
+  gap:9px!important;
+  border-radius:13px!important;
+}
+#repair.qamqor-phone-form-card .wizard-step-heading{
+  gap:8px!important;
+  padding-bottom:8px!important;
+}
+#repair.qamqor-phone-form-card .wizard-step-number{
+  width:29px!important;
+  height:29px!important;
+  flex-basis:29px!important;
+  border-radius:9px!important;
+  font-size:10px!important;
+}
+#repair.qamqor-phone-form-card .wizard-step-heading h3{font-size:9px!important}
+#repair.qamqor-phone-form-card .wizard-step-heading p{font-size:8px!important}
+#repair.qamqor-phone-form-card label{margin-bottom:4px!important;font-size:8px!important}
+#repair.qamqor-phone-form-card input,
+#repair.qamqor-phone-form-card select,
+#repair.qamqor-phone-form-card textarea{
+  min-height:35px!important;
+  padding:8px 9px!important;
+  border:1px solid rgba(220,235,255,.22)!important;
+  border-radius:9px!important;
+  color:#f7fbff!important;
+  background:rgba(225,240,255,.085)!important;
+  -webkit-backdrop-filter:blur(12px) saturate(135%)!important;
+  backdrop-filter:blur(12px) saturate(135%)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.09)!important;
+  font-size:12px!important;
+}
+#repair.qamqor-phone-form-card textarea{min-height:64px!important}
+#repair.qamqor-phone-form-card .choice{padding:8px!important;gap:7px!important;border-radius:10px!important}
+#repair.qamqor-phone-form-card .choice .ico{width:25px!important;height:25px!important;border-radius:8px!important;font-size:12px!important}
+#repair.qamqor-phone-form-card .choice span:last-child{font-size:9px!important}
+#repair.qamqor-phone-form-card .wizard-nav{gap:7px!important}
+#repair.qamqor-phone-form-card .wizard-next,
+#repair.qamqor-phone-form-card .wizard-back,
+#repair.qamqor-phone-form-card .submit{
+  min-height:38px!important;
+  padding:9px 12px!important;
+  font-size:10px!important;
+}
+#repair.qamqor-phone-form-card .fine,
+#repair.qamqor-phone-form-card .map-help{font-size:8px!important}
+#repair.qamqor-phone-form-card .map-field{padding:9px!important;gap:7px!important}
+#repair.qamqor-phone-form-card #serviceMap{height:190px!important;border-radius:10px!important}
+#repair.qamqor-phone-form-card .map-button,
+#repair.qamqor-phone-form-card .map-direction{min-height:32px!important;padding:7px 9px!important;font-size:8px!important}
+#repair.qamqor-phone-form-card #telegramVerifyBox{padding:10px!important;border-radius:11px!important}
+#repair.qamqor-phone-form-card #telegramVerifyButton{min-height:37px!important;font-size:9px!important}
+#repair.qamqor-phone-form-card .notice{margin-top:7px!important;padding:8px!important;font-size:9px!important}
+/* The page card and step panels contribute text/layout only; no opaque sheet behind them. */
+#repair.qamqor-phone-form-card .cardhead,
+#repair.qamqor-phone-form-card .wizard-progress,
+#repair.qamqor-phone-form-card .wizard-step,
+#repair.qamqor-phone-form-card .wizard-step-heading,
+#repair.qamqor-phone-form-card .map-field,
+#repair.qamqor-phone-form-card #telegramVerifyBox,
+#repair.qamqor-phone-form-card .phone-model-preview{
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+#repair.qamqor-phone-form-card .wizard-progress,
+#repair.qamqor-phone-form-card .wizard-step,
+#repair.qamqor-phone-form-card .map-field,
+#repair.qamqor-phone-form-card #telegramVerifyBox{
+  border-color:transparent!important;
+}
+#repair.qamqor-phone-form-card .wizard-step{
+  padding:2px 0!important;
+}
+#repair.qamqor-phone-form-card .wizard-progress{
+  padding:2px 0 7px!important;
+  backdrop-filter:none!important;
+}
+#repair.qamqor-phone-form-card .wizard-step-heading{
+  border-bottom-color:rgba(220,235,255,.22)!important;
+}
+@media(max-width:420px){
+  #repair.qamqor-phone-form-card{padding-left:9px!important;padding-right:9px!important}
+  #repair.qamqor-phone-form-card .wizard-step{padding:8px!important}
+  #repair.qamqor-phone-form-card #serviceMap{height:170px!important}
+}
+</style>
+
 </head>
 <body>
-  <model-viewer
-    id="phone"
-    src="./iPhone%20duo.glb"
-    alt="iPhone Duo"
-    camera-controls
-    disable-pan
-    touch-action="pan-y"
-    interaction-prompt="none"
-    environment-image="neutral"
-    exposure="1"
-    shadow-intensity="1"
-    shadow-softness="0.8"
-    camera-orbit="35deg 75deg auto"
-    field-of-view="30deg"
-    interpolation-decay="180"
-    loading="eager">
-  </model-viewer>
-  <script>
-    const phone = document.getElementById('phone');
+<div id="qamqor-video-background" aria-hidden="true">
+  <video id="qamqor-background-video" autoplay muted playsinline preload="metadata" tabindex="-1" volume="0.12">
+    <source src="https://pub-60f67fee510b4876ad5634ad1d313b01.r2.dev/1108%282%29.mp4" type="video/mp4">
+  </video>
+  <div class="qamqor-video-shade"></div>
+</div>
 
-    phone.addEventListener('load', () => {
-      // Use the actual center of the phone's geometry as the orbit point.
-      const center = phone.getBoundingBoxCenter();
-      phone.cameraTarget = center
-        ? center.x + 'm ' + center.y + 'm ' + center.z + 'm'
-        : 'auto auto auto';
+<div class="wrap">
+<header class="site-header"><a class="brand" href="#top" aria-label="QAMQOR PHONE басты беті"><div class="mark"><img src="https://raw.githubusercontent.com/jjjjjjjjjjjjjjae-hub/QamqorPhone/main/QamqorPhone.png" alt="QAMQOR PHONE логотипі" width="46" height="46"></div><div>QAMQOR PHONE<small>PHONE REPAIR SERVICE</small></div></a></header>
+<main>
 
-      // Frame the whole model, then rotate smoothly around its center.
-      phone.cameraOrbit = '35deg 75deg auto';
-      phone.jumpCameraToGoal();
-    }, { once: true });
-  </script>
+<section class="hero" id="top" data-app-page="home">
+  <div class="art premium-art" aria-label="QAMQOR PHONE нақты 3D телефоны">
+    <model-viewer
+      class="qamqor-phone-model"
+      src="https://raw.githubusercontent.com/jjjjjjjjjjjjjjae-hub/QamqorPhone/main/QAMQOR-iPhone-Duo.glb?v=duo-native-lock-screen-20261108"
+      alt="QAMQOR PHONE Duo 3D моделі"
+      animation-name="open-close"
+      camera-controls
+      disable-zoom
+      disable-pan
+      interaction-prompt="none"
+      loading="eager"
+      reveal="auto"
+      shadow-intensity="0.35"
+      exposure="1.05"
+      environment-image="neutral"
+      camera-orbit="0deg 75deg 100%"
+      field-of-view="30deg"
+      tabindex="0">
+      <span slot="hotspot-screen-top-left" class="qamqor-screen-probe" data-position="-0.0792842135 0.1143482625 0.0024460158" data-normal="0 0 1" aria-hidden="true"></span>
+      <span slot="hotspot-screen-top-right" class="qamqor-screen-probe" data-position="0.0792842135 0.1143482625 0.0024460158" data-normal="0 0 1" aria-hidden="true"></span>
+      <span slot="hotspot-screen-bottom-right" class="qamqor-screen-probe" data-position="0.0792842135 0.0034348741 0.0024460158" data-normal="0 0 1" aria-hidden="true"></span>
+      <span slot="hotspot-screen-bottom-left" class="qamqor-screen-probe" data-position="-0.0792842135 0.0034348741 0.0024460158" data-normal="0 0 1" aria-hidden="true"></span>
+      <span slot="hotspot-lock-top-left" class="qamqor-screen-probe" data-position="-0.0797 0.1146 -0.00295" data-normal="0 0 -1" aria-hidden="true"></span>
+      <span slot="hotspot-lock-top-right" class="qamqor-screen-probe" data-position="-0.0027 0.1146 -0.00295" data-normal="0 0 -1" aria-hidden="true"></span>
+      <span slot="hotspot-lock-bottom-right" class="qamqor-screen-probe" data-position="-0.0027 0.0031 -0.00295" data-normal="0 0 -1" aria-hidden="true"></span>
+      <span slot="hotspot-lock-bottom-left" class="qamqor-screen-probe" data-position="-0.0797 0.0031 -0.00295" data-normal="0 0 -1" aria-hidden="true"></span>
+      <span slot="hotspot-lock-alt-top-left" class="qamqor-screen-probe" data-position="-0.0797 0.1146 -0.00295" data-normal="0 0 1" aria-hidden="true"></span>
+      <span slot="hotspot-lock-alt-top-right" class="qamqor-screen-probe" data-position="-0.0027 0.1146 -0.00295" data-normal="0 0 1" aria-hidden="true"></span>
+      <span slot="hotspot-lock-alt-bottom-right" class="qamqor-screen-probe" data-position="-0.0027 0.0031 -0.00295" data-normal="0 0 1" aria-hidden="true"></span>
+      <span slot="hotspot-lock-alt-bottom-left" class="qamqor-screen-probe" data-position="-0.0797 0.0031 -0.00295" data-normal="0 0 1" aria-hidden="true"></span>
+    </model-viewer>
+  </div>
+</section>
+
+
+<section class="services-section" id="services" data-app-page="services" hidden>
+  <div class="section-heading">
+    <span class="tag">QAMQOR PHONE ҚЫЗМЕТТЕРІ</span>
+    <h2>Қандай көмек керек?</h2>
+    <p>Мәселеңізге сай жөндеу түрін таңдаңыз. Толық өтінімді төмендегі формада қалдырасыз.</p>
+  </div>
+  <div class="service-grid">
+    <article class="service-card"><div class="service-icon icon-screen"><span>▣</span></div><div class="service-card-top"><span>01 / ДИСПЛЕЙ</span><span class="service-arrow">↗</span></div><h3>Экранды жөндеу</h3><p>Жарылған немесе дұрыс көрсетпейтін экран мәселесі.</p><a href="#repair">Өтінім беру <span>→</span></a></article>
+    <article class="service-card"><div class="service-icon icon-battery"><span>ϟ</span></div><div class="service-card-top"><span>02 / ҚУАТ</span><span class="service-arrow">↗</span></div><h3>Батарея ауыстыру</h3><p>Зарядты ұстамайтын немесе тез отырып қалатын батарея.</p><a href="#repair">Өтінім беру <span>→</span></a></article>
+    <article class="service-card"><div class="service-icon icon-charge"><span>⌁</span></div><div class="service-card-top"><span>03 / ЗАРЯДТАУ</span><span class="service-arrow">↗</span></div><h3>Зарядтау ұясы</h3><p>Кабель қосылмауы немесе зарядтаудың тұрақсыздығы.</p><a href="#repair">Өтінім беру <span>→</span></a></article>
+    <article class="service-card"><div class="service-icon icon-camera"><span>◎</span></div><div class="service-card-top"><span>04 / КАМЕРА</span><span class="service-arrow">↗</span></div><h3>Камераны жөндеу</h3><p>Камера ашылмауы, фокус немесе түсіру ақаулары.</p><a href="#repair">Өтінім беру <span>→</span></a></article>
+    <article class="service-card"><div class="service-icon icon-audio"><span>)))</span></div><div class="service-card-top"><span>05 / ДЫБЫС</span><span class="service-arrow">↗</span></div><h3>Динамик пен микрофон</h3><p>Дыбыс естілмеуі немесе сөйлескенде дауыс жетпеуі.</p><a href="#repair">Өтінім беру <span>→</span></a></article>
+    <article class="service-card"><div class="service-icon icon-tools"><span>✳</span></div><div class="service-card-top"><span>06 / БАСҚА</span><span class="service-arrow">↗</span></div><h3>Басқа ақаулар</h3><p>Телефон қосылмайды немесе өзге техникалық мәселе.</p><a href="#repair">Өтінім беру <span>→</span></a></article>
+  </div>
+</section>
+
+<section class="card" id="repair" data-app-page="repair" hidden>
+
+<div class="cardhead"><div><div class="tag">Онлайн өтінім</div><h2>Жөндеуге өтініш қалдыру</h2><p class="sub">Жұлдызшамен белгіленген жолдарды толтырыңыз.</p></div><div class="step">7 ҚАДАМ</div></div>
+<form id="repairForm">
+<div class="wizard-progress" aria-live="polite">
+<div class="wizard-progress-line"><strong id="wizardProgressText">1 / 7 қадам</strong><span id="wizardProgressName">Телефон</span></div>
+<div class="wizard-progress-track"><span id="wizardProgressBar"></span></div></div>
+<section class="wizard-step" data-wizard-step="0" aria-label="1-қадам: Телефон маркасы мен моделі">
+<div class="wizard-step-heading"><span class="wizard-step-number">01</span><div><h3>Телефон маркасы мен моделі</h3><p>Қандай телефон жөндеткіңіз келеді?</p></div></div>
+<div class="field"><label for="brand">Телефон маркасы мен моделі *</label><div class="phone-picker">
+  <input id="brand" name="brand" required minlength="2" maxlength="90" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="phoneModelSuggestions" aria-expanded="false" placeholder="Модельді іздеңіз: iPhone 13, Samsung A54">
+  <div id="phoneModelSuggestions" class="phone-model-suggestions" role="listbox" hidden></div>
+</div>
+<div id="phoneModelPreview" class="phone-model-preview" aria-live="polite" hidden>
+  <img id="phoneModelPreviewImage" alt="Таңдалған телефон моделі">
+  <div><strong id="phoneModelPreviewName"></strong><span>Таңдалған модель</span></div>
+  <button id="phoneModelClear" type="button" aria-label="Таңдалған модельді өшіру">×</button>
+</div></div>
+<div class="field full"><label for="partType">Бөлшек сапасы</label><select id="partType" name="part_type"><option value="Қолданылмайды" selected>Қолданылмайды / бөлшек қажет емес</option><option value="Original">Original</option><option value="InCell">InCell</option><option value="AAA">AAA / сапалы көшірме</option><option value="Басқа">Басқа сапа</option></select><p class="map-help">Экран немесе басқа бөлшек ауыстырылса, нақты сапасын таңдаңыз. Бұрынғы баға тек дәл осы сапамен сәйкес келгенде қолданылады.</p></div>
+<div class="wizard-nav">
+<span class="wizard-first-note">Барлық өрісті ретімен толтырыңыз.</span>
+<button class="wizard-next" type="button" data-wizard-next>Келесі қадам <span>→</span></button>
+</div></section>
+<section class="wizard-step" data-wizard-step="1" hidden aria-label="2-қадам: Жөндеу түрі">
+<div class="wizard-step-heading"><span class="wizard-step-number">02</span><div><h3>Жөндеу түрі</h3><p>Телефоныңызда қандай ақау бар?</p></div></div>
+<div class="field"><label for="problem">Қандай жөндеу керек? *</label><select id="problem" name="problem" required><option value="" selected disabled>Жөндеу түрін таңдаңыз</option><option>Экран / дисплей ауыстыру</option><option>Батарея ауыстыру</option><option>Зарядтау ұясын жөндеу</option><option>Камераны жөндеу</option><option>Динамик / микрофон</option><option>Артқы қақпақты ауыстыру</option><option>Телефон қосылмайды</option><option>Басқа мәселе</option></select></div>
+<div class="wizard-nav">
+<button class="wizard-back" type="button" data-wizard-back>← Артқа</button>
+<button class="wizard-next" type="button" data-wizard-next>Келесі қадам <span>→</span></button>
+</div></section>
+<section class="wizard-step" data-wizard-step="2" hidden aria-label="3-қадам: Ақауды сипаттау">
+<div class="wizard-step-heading"><span class="wizard-step-number">03</span><div><h3>Ақауды сипаттау</h3><p>Мәселені қысқаша, толық жазыңыз.</p></div></div>
+<div class="field full"><label for="details">Ақауды толық сипаттаңыз *</label><textarea id="details" name="details" required minlength="5" maxlength="300" placeholder="Мысалы: экран сынған, телефон қосылады, бірақ сурет шықпайды..."></textarea></div>
+<div class="wizard-nav">
+<button class="wizard-back" type="button" data-wizard-back>← Артқа</button>
+<button class="wizard-next" type="button" data-wizard-next>Келесі қадам <span>→</span></button>
+</div></section>
+<section class="wizard-step" data-wizard-step="3" hidden aria-label="4-қадам: Мекенжай">
+<div class="wizard-step-heading"><span class="wizard-step-number">04</span><div><h3>Мекенжай</h3><p>Маман қай мекенжайға баруы керек?</p></div></div>
+<div class="field full"><label for="street">Көше атауы</label><input id="street" name="street" maxlength="120" autocomplete="address-line1" placeholder="Көше атауы"><label class="inline-check"><input id="noStreet" name="no_street" type="checkbox"> Көше атауы жоқ</label><label for="house">Үй нөмірі</label><input id="house" name="house" maxlength="30" autocomplete="address-line2" placeholder="Үй нөмірі"><label class="inline-check"><input id="noHouse" name="no_house" type="checkbox"> Үй нөмірі жоқ</label><p class="map-help">Көше немесе үй нөмірі белгісіз болса, тиісті құсбелгіні қойыңыз.</p></div>
+<div class="wizard-nav">
+<button class="wizard-back" type="button" data-wizard-back>← Артқа</button>
+<button class="wizard-next" type="button" data-wizard-next>Келесі қадам <span>→</span></button>
+</div></section>
+<section class="wizard-step" data-wizard-step="4" hidden aria-label="5-қадам: Картадағы орын">
+<div class="wizard-step-heading"><span class="wizard-step-number">05</span><div><h3>Картадағы орын</h3><p>Картадан жөндеу жасалатын нақты орынды белгілеңіз.</p></div></div>
+<div class="field full map-field">
+  <label>Клиенттің орналасқан жері *</label>
+  <div class="map-actions">
+    <button class="map-button" id="locateButton" type="button">◎ Менің орнымды анықтау</button>
+    <button class="map-button" id="clearPointButton" type="button" disabled>× Белгіні өшіру</button>
+    <a class="map-direction" id="directionsLink" href="#" target="_blank" rel="noopener noreferrer" hidden>↗ Google Maps-та маршрут</a>
+  </div>
+  <div id="serviceMap" role="application" aria-label="Жөндеу жасалатын орынды картадан таңдау"></div>
+  <p class="map-status" id="mapStatus" role="status" aria-live="polite">Картадан үйіңізді немесе жөндеу жасалатын орынды түртіңіз. Белгіні саусақпен жылжытуға болады.</p>
+  <p class="map-help">GPS батырмасы браузердің орналасқан жерді анықтау рұқсатын сұрайды. Көше мен үй нөмірін мекенжай өрісіне де жазыңыз.</p>
+</div>
+<div class="wizard-nav">
+<button class="wizard-back" type="button" data-wizard-back>← Артқа</button>
+<button class="wizard-next" type="button" data-wizard-next>Келесі қадам <span>→</span></button>
+</div></section>
+<section class="wizard-step" data-wizard-step="5" hidden aria-label="6-қадам: WhatsApp нөмірі">
+<div class="wizard-step-heading"><span class="wizard-step-number">06</span><div><h3>WhatsApp нөмірі</h3><p>Менеджер сізбен осы нөмір арқылы байланысады.</p></div></div>
+<div class="field full">
+  <label for="whatsappNumber"><span class="messenger-label"><svg class="messenger-icon whatsapp-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <circle cx="24" cy="24" r="24" fill="#25D366"/>
+  <path fill="#fff" d="M24 8.5A15.3 15.3 0 0 0 10.8 31.5L9 39l7.7-2a15.3 15.3 0 1 0 7.3-28.5Zm0 27.7a12.4 12.4 0 0 1-6.3-1.7l-.5-.3-4.6 1.2 1.2-4.5-.3-.5a12.5 12.5 0 1 1 10.5 5.8Z"/>
+  <path fill="#fff" d="M31.2 26.8c-.4-.2-2.2-1.1-2.6-1.2-.3-.1-.6-.2-.8.2-.3.4-1 1.2-1.2 1.4-.2.3-.4.3-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.7.1-.2 0-.5 0-.7l-1.2-2.8c-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.7.1-1 .5-.4.4-1.4 1.3-1.4 3.2s1.4 3.7 1.6 4c.2.3 2.8 4.3 6.8 6 .9.4 1.6.6 2.2.7.9.3 1.7.2 2.3.1.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.7.2-1.8-.1-.1-.4-.2-.8-.4Z"/>
+</svg><span>WhatsApp байланыс нөмірі *</span></span></label>
+  <input id="whatsappNumber" name="whatsapp_number" type="tel" inputmode="tel" autocomplete="tel" required maxlength="24" placeholder="+7 7XX XXX XX XX">
+  <p class="map-help">WhatsApp нөміріңіз менеджерге өтінім бойынша байланысу үшін қажет.</p>
+  <label class="quote-consent"><input id="contactConsent" name="contact_consent" type="checkbox" required> Өтінімді өңдеу және қажет болған жағдайда кейін байланысу үшін байланыс деректерімді сақтауға келісемін.</label>
+</div>
+<div class="wizard-nav">
+<button class="wizard-back" type="button" data-wizard-back>← Артқа</button>
+<button class="wizard-next" type="button" data-wizard-next>Келесі қадам <span>→</span></button>
+</div></section>
+<section class="wizard-step" data-wizard-step="6" hidden aria-label="7-қадам: Telegram растауы">
+<div class="wizard-step-heading"><span class="wizard-step-number">07</span><div><h3>Telegram растауы</h3><p>Соңғы қадам: Telegram аккаунтыңызды растаңыз.</p></div></div>
+<div class="field full" id="telegramVerifyBox">
+  <label>Telegram аккаунтын растау</label>
+  <div class="verify-actions">
+    <button class="submit verify-provider" id="telegramVerifyButton" type="button"><svg class="messenger-icon telegram-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+  <circle cx="24" cy="24" r="24" fill="#229ED9"/>
+  <path fill="#fff" d="M36.2 13.1 32 33c-.3 1.4-1.1 1.7-2.3 1.1l-6.4-4.7-3.1 3c-.4.4-.7.7-1.4.7l.5-6.5 11.8-10.7c.5-.5-.1-.7-.8-.3L16.1 25l-6.2-1.9c-1.3-.4-1.3-1.3.3-1.9l24.3-9.4c1.1-.4 2.1.3 1.7 1.3z"/>
+</svg><span>Telegram арқылы растау</span></button>
+  </div>
+  <p class="sub" id="telegramVerifyStatus" style="margin-top:12px" role="status" aria-live="polite">Өтінімді жіберу үшін Telegram аккаунтыңызды растаңыз. WhatsApp нөмірі тек байланыс үшін қолданылады.</p>
+</div>
+
+<div class="action"><div class="fine">Өтінім жіберілгеннен кейін маман бөлшектің бар-жоғын және бағасын тексереді. Соңғы жөндеу құны сізбен алдын ала келісіледі. Бұл кезеңде төлем алынбайды.</div></div>
+<div class="wizard-nav">
+<button class="wizard-back" type="button" data-wizard-back>← Артқа</button>
+<button class="wizard-back" type="button" id="cancelRepairButton">Өтінімді тазарту</button>
+</div></section>
+</form>
+<section id="quotePanel" class="quote-panel" hidden aria-live="polite">
+  <div class="quote-panel-top"><span class="quote-kicker">QAMQOR PHONE · ӨТІНІМ</span><h3>Өтінім мәртебесі</h3><p id="quotePanelStatus">Өтінім қабылданды. Мастер ізделуде.</p><p id="quotePanelId" class="quote-id"></p></div>
+  <div id="quoteAmounts" class="quote-amounts" hidden>
+    <div class="quote-line"><span>Бөлшек түрі</span><strong id="quotePartType">—</strong></div>
+    <div class="quote-line"><span>Бөлшек құны</span><strong id="quotePartCost">—</strong></div>
+    <div class="quote-line"><span>Барып жөндеу құны</span><strong id="quoteDeliveryCost">—</strong></div>
+    <div class="quote-line"><span>Жұмыс бағасы</span><strong id="quoteLaborCost">—</strong></div>
+    <div class="quote-total"><span>Жалпы болжамды сома</span><strong id="quoteTotal">—</strong></div>
+    <p class="quote-disclaimer">Бұл — алдын ала жөндеу сметасы. Бөлшектің қолжетімділігі мен телефон жағдайына қарай соңғы баға менеджермен нақтыланады. Бұл төлем немесе фискалдық чек емес.</p>
+  </div>
+  <div class="quote-actions">
+    <button id="quoteAgreeButton" type="button" class="quote-agree" hidden>Бағамен келісу</button>
+    <button id="quoteCancelButton" type="button" class="quote-cancel">Тапсырыстан бас тарту</button>
+  </div>
+  <div id="managerContactLinks" class="manager-contact-links" hidden>
+    <p>Менеджермен тікелей байланысу:</p>
+    <a id="managerWhatsappLink" class="manager-contact whatsapp" href="#" target="_blank" rel="noopener noreferrer" hidden>WhatsApp арқылы жазу</a>
+    <a id="managerTelegramLink" class="manager-contact telegram" href="#" target="_blank" rel="noopener noreferrer" hidden>Telegram арқылы жазу</a>
+  </div>
+  <button id="quoteNewRequestButton" type="button" class="quote-new" hidden>Жаңа өтінім беру</button>
+</section>
+<div class="notice" id="notice" role="status" aria-live="polite"></div>
+</section>
+
+
+
+</main>
+<footer><div><strong>QAMQOR PHONE</strong> · Телефон жөндеу қызметі</div><div>© <span id="year"></span> Барлық құқық қорғалған</div></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<script>
+
+// Premium scroll reveal + subtle 3D pointer response. No external library required.
+(() => {
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const art = document.querySelector(".premium-art");
+  // 3D pointer tilt disabled: the hero phone stays stationary.
+
+  const revealTargets = document.querySelectorAll(".card, footer, .map-field, #telegramVerifyBox, .service-card, .section-heading, .hero-copy");
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    document.documentElement.classList.add("qamqor-reveal-ready");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("qamqor-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.12, rootMargin: "0px 0px -35px 0px"});
+    revealTargets.forEach((element, index) => {
+      element.classList.add("qamqor-reveal");
+      element.style.setProperty("--reveal-delay", Math.min(index * 90, 270) + "ms");
+      observer.observe(element);
+    });
+  }
+})();
+
+</script>
+<script>
+const form = document.getElementById("repairForm");
+const notice = document.getElementById("notice");
+const API = "https://qamqorphone-auth.jjjjjjjjjjjjjjae.workers.dev";
+const verifyButton = document.getElementById("telegramVerifyButton");
+const verifyStatus = document.getElementById("telegramVerifyStatus");
+const mapStatus = document.getElementById("mapStatus");
+const locateButton = document.getElementById("locateButton");
+const clearPointButton = document.getElementById("clearPointButton");
+const directionsLink = document.getElementById("directionsLink");
+
+let serviceMap = null;
+let locationMarker = null;
+let selectedPoint = null;
+let locationConfirmed = false;
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* Search a broad phone catalog; render a photo only when a verified image URL exists. */
+(() => {
+  const input = document.getElementById("brand");
+  const list = document.getElementById("phoneModelSuggestions");
+  const preview = document.getElementById("phoneModelPreview");
+  const previewImage = document.getElementById("phoneModelPreviewImage");
+  const previewName = document.getElementById("phoneModelPreviewName");
+  const clear = document.getElementById("phoneModelClear");
+  if (!input || !list || !preview || !previewImage || !previewName || !clear) return;
+
+  const photoByModel = {
+    "iPhone 13": "https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iphone13_hero_geo_09142021_inline.jpg.large.jpg",
+    "iPhone 13 mini": "https://static01.galaxus.com/productimages/4/8/8/8/7/1/1/0/iPhone_13_mini_Pink_PDP_Image_Position-1A__WWEN.jpg_sea.jpeg",
+    "iPhone 13 Pro": "https://media.tatacroma.com/Croma%20Assets/Communication/Mobiles/Images/243511_0_o8kuhr.png",
+    "iPhone 13 Pro Max": "https://cdn.mafrservices.com/sys-master-root/hfb/h14/26549481177118/569558_main.jpg",
+    "iPhone 12": "https://bestpricegh.com/cdn/shop/products/711wsjBtWeL_c1d056fb-4dcb-4549-87e5-3ba03e42d5e0.jpg?crop=center&height=2560&v=1603119589&width=2560",
+    "iPhone 14": "https://www.mrfix.ua/storage/631/f47/aaa/product-product-apple-iphone-14-128gb-starlight-13610-1000x1000.jpg",
+    "Samsung Galaxy A54 5G": "https://www.pbtech.co.nz/imgprod/E/X/EXMPHSAMA0054__1.jpg",
+    "Samsung Galaxy A34 5G": "https://sota.store/image/cache/catalog/Samsung-2/samsung-a34-a346-blk-01-1600x1600.webp",
+    "Xiaomi Redmi Note 12": "https://cdn.cimri.io/image/1200x1200/xiaomi-redmi-note-12-4g-128gb-6gb-ram-gri_868163989.jpg"
+  };
+
+  const groups = [
+    ["iPhone","Apple, айфон, iphone",[
+      "6","6 Plus","6s","6s Plus","SE (1st generation)","7","7 Plus","8","8 Plus","X","XR","XS","XS Max",
+      "11","11 Pro","11 Pro Max","SE (2020)","12 mini","12","12 Pro","12 Pro Max",
+      "13 mini","13","13 Pro","13 Pro Max","SE (2022)",
+      "14","14 Plus","14 Pro","14 Pro Max",
+      "15","15 Plus","15 Pro","15 Pro Max",
+      "16","16 Plus","16 Pro","16 Pro Max","16e"
+    ]],
+    ["Samsung Galaxy","Samsung, Самсунг, Galaxy, Галакси",[
+      "A01","A02","A02s","A03","A03s","A04","A04e","A04s","A05","A05s","A06",
+      "A10","A10s","A11","A12","A13","A14","A15","A16","A17",
+      "A20","A20s","A21s","A22","A23","A24","A25","A26",
+      "A30","A30s","A31","A32","A33 5G","A34 5G","A35 5G","A36 5G",
+      "A40","A41","A42 5G","A50","A50s","A51","A52","A52s 5G","A53 5G","A54 5G","A55 5G","A56 5G",
+      "A70","A71","A72","A73 5G","A80","A90 5G",
+      "S20","S20+","S20 Ultra","S20 FE","S21","S21+","S21 Ultra","S21 FE",
+      "S22","S22+","S22 Ultra","S23","S23+","S23 Ultra","S23 FE",
+      "S24","S24+","S24 Ultra","S24 FE","S25","S25+","S25 Ultra","S25 Edge","S25 FE",
+      "S26","S26+","S26 Ultra",
+      "Note 10","Note 10+","Note 10 Lite","Note 20","Note 20 Ultra",
+      "Z Flip3","Z Flip4","Z Flip5","Z Flip6","Z Flip7",
+      "Z Fold3","Z Fold4","Z Fold5","Z Fold6","Z Fold7",
+      "M12","M13","M14","M15","M21","M23","M31","M32","M33","M34","M51","M52","M53","M54","M55",
+      "F12","F13","F14","F15","F23","F34","F54"
+    ]],
+    ["Xiaomi","Xiaomi, Mi, Сяоми, Шаоми",[
+      "Mi 9","Mi 10","Mi 10T","Mi 10T Pro","Mi 11","Mi 11 Lite","Mi 11T","Mi 11T Pro",
+      "12","12 Lite","12 Pro","12T","12T Pro","13","13 Lite","13 Pro","13T","13T Pro",
+      "14","14 Ultra","14T","14T Pro","15","15 Ultra","15T","15T Pro",
+      "Redmi 9","Redmi 9A","Redmi 9C","Redmi 10","Redmi 10A","Redmi 10C","Redmi 12","Redmi 12C",
+      "Redmi 13","Redmi 13C","Redmi 14C","Redmi 15","Redmi 15C",
+      "Redmi Note 8","Redmi Note 8 Pro","Redmi Note 9","Redmi Note 9S","Redmi Note 9 Pro",
+      "Redmi Note 10","Redmi Note 10 Pro","Redmi Note 11","Redmi Note 11S","Redmi Note 11 Pro",
+      "Redmi Note 12","Redmi Note 12 Pro","Redmi Note 12 Pro+","Redmi Note 13","Redmi Note 13 Pro","Redmi Note 13 Pro+",
+      "Redmi Note 14","Redmi Note 14 Pro","Redmi Note 14 Pro+","Redmi Note 15","Redmi Note 15 Pro",
+      "Poco C40","Poco C55","Poco C65","Poco C75","Poco C85",
+      "Poco M3","Poco M4 Pro","Poco M5","Poco M5s","Poco M6","Poco M6 Pro",
+      "Poco X3","Poco X3 Pro","Poco X4 Pro","Poco X5","Poco X5 Pro","Poco X6","Poco X6 Pro","Poco X7","Poco X7 Pro",
+      "Poco F3","Poco F4","Poco F5","Poco F5 Pro","Poco F6","Poco F6 Pro","Poco F7","Poco F7 Pro","Poco F7 Ultra"
+    ]],
+    ["Huawei","Huawei, Хуавей, Хуавэй",[
+      "P20","P20 Pro","P30","P30 Lite","P30 Pro","P40","P40 Lite","P40 Pro",
+      "P50","P50 Pro","P50 Pocket","P60","P60 Pro","Pura 70","Pura 70 Pro","Pura 80",
+      "Mate 20","Mate 20 Pro","Mate 30","Mate 30 Pro","Mate 40 Pro","Mate 50 Pro","Mate 60 Pro","Mate X3",
+      "Nova 5T","Nova 7i","Nova 8i","Nova 9","Nova 10","Nova 11","Nova 12","Nova 13","Nova Y70","Nova Y90",
+      "Y5p","Y6p","Y7p","Y8p","Y9 Prime"
+    ]],
+    ["Honor","Honor, Хонор",[
+      "8X","9X","10 Lite","20","20 Pro","30i","50","50 Lite","70","70 Lite","80","90","90 Lite",
+      "X5","X6","X7","X7a","X8","X8a","X9a","X9b","X9c","X10","X20","X30",
+      "Magic4 Pro","Magic5 Pro","Magic6 Pro","Magic7 Pro","Magic V2","Magic V3"
+    ]],
+    ["Google Pixel","Google, Pixel, Пиксель",[
+      "3","3 XL","3a","4","4 XL","4a","4a 5G","5","5a","6","6 Pro","6a",
+      "7","7 Pro","7a","8","8 Pro","8a","9","9 Pro","9 Pro XL","9a",
+      "10","10 Pro","10 Pro XL","10 Pro Fold"
+    ]],
+    ["OPPO","Oppo, Оппо",[
+      "A15","A16","A17","A18","A38","A54","A57","A58","A60","A74","A76","A78","A79","A96","A98",
+      "Reno 5","Reno 6","Reno 7","Reno 8","Reno 8T","Reno 10","Reno 11","Reno 12","Reno 13","Reno 14",
+      "Find X3 Pro","Find X5 Pro","Find X6 Pro","Find X7 Ultra","Find X8 Pro"
+    ]],
+    ["vivo","Vivo, Виво",[
+      "Y12","Y15","Y16","Y17","Y19","Y20","Y21","Y22","Y27","Y28","Y30","Y31","Y33s","Y35","Y36",
+      "Y50","Y51","Y53s","Y55","Y serіes","V20","V21","V23","V25","V27","V29","V30","V40","V50",
+      "X60 Pro","X70 Pro","X80 Pro","X90 Pro","X100 Pro","X200 Pro"
+    ]],
+    ["realme","Realme, Рилми, Рилме",[
+      "C11","C12","C15","C21","C25","C30","C31","C33","C35","C51","C53","C55","C61","C63","C65","C67","C75",
+      "5","6","7","8","9","9 Pro","10","10 Pro","11","11 Pro","12","12 Pro","12 Pro+","13","13 Pro+","14","14 Pro+",
+      "GT Neo 2","GT Neo 3","GT Neo 5","GT 2 Pro","GT 6","GT 7 Pro","Note 50"
+    ]],
+    ["TECNO","Tecno, Текно",[
+      "Spark 6","Spark 7","Spark 8","Spark 9","Spark 10","Spark 20","Spark 20 Pro","Spark 30","Spark 40",
+      "Camon 17","Camon 18","Camon 19","Camon 20","Camon 20 Pro","Camon 30","Camon 30 Pro","Camon 40","Camon 40 Pro",
+      "Pova 2","Pova 3","Pova 4","Pova 5","Pova 6","Pova 6 Neo","Pova 7","Pop 7","Pop 8","Pop 9"
+    ]],
+    ["Infinix","Infinix, Инфиникс",[
+      "Hot 10","Hot 11","Hot 12","Hot 20","Hot 30","Hot 30i","Hot 40","Hot 40 Pro","Hot 50","Hot 50 Pro",
+      "Note 10","Note 11","Note 12","Note 30","Note 30 Pro","Note 40","Note 40 Pro","Note 50","Note 50 Pro",
+      "Zero 20","Zero 30","Zero 40","Smart 6","Smart 7","Smart 8","Smart 9"
+    ]],
+    ["OnePlus","OnePlus, Ванплас",[
+      "6","6T","7","7 Pro","7T","8","8 Pro","8T","9","9 Pro","9R","10 Pro","10T",
+      "11","11R","12","12R","13","13R","Nord","Nord CE 2","Nord CE 3","Nord CE 4","Nord 3","Nord 4","Nord 5"
+    ]],
+    ["Motorola","Motorola, Моторола",[
+      "Moto G8","Moto G9","Moto G10","Moto G20","Moto G22","Moto G30","Moto G31","Moto G32","Moto G40",
+      "Moto G50","Moto G52","Moto G54","Moto G60","Moto G62","Moto G72","Moto G84","Edge 20","Edge 30",
+      "Edge 40","Edge 50","Edge 60","Razr 40","Razr 50"
+    ]],
+    ["Nokia","Nokia, Нокиа",[
+      "2.4","3.4","5.3","5.4","G10","G11","G20","G21","G22","G42","G50","G60","G серия",
+      "X10","X20","X30","C10","C20","C21","C30","C31","C32"
+    ]],
+    ["Sony Xperia","Sony, Sony Xperia, Сони",[
+      "1 II","1 III","1 IV","1 V","1 VI","5 II","5 III","5 IV","5 V","10 II","10 III","10 IV","10 V","10 VI","L4","L5"
+    ]],
+    ["ASUS","Asus, Асус, Zenfone, ROG Phone",[
+      "Zenfone 7","Zenfone 8","Zenfone 9","Zenfone 10","Zenfone 11 Ultra","ROG Phone 5","ROG Phone 6","ROG Phone 7","ROG Phone 8","ROG Phone 9"
+    ]],
+    ["Nothing Phone","Nothing, Нотинг",[
+      "Phone (1)","Phone (2)","Phone (2a)","Phone (2a) Plus","Phone (3)","Phone (3a)","Phone (3a) Pro"
+    ]],
+    ["ZTE","ZTE, ЗТЕ",[
+      "Blade A31","Blade A51","Blade A71","Blade V40","Blade V50","Nubia Z50","Nubia Z60 Ultra","Nubia Flip"
+    ]],
+    ["Meizu","Meizu, Мейзу",[
+      "16th","17","18","20","21","Note 8","Note 9","M6","M8","M10"
+    ]]
+  ];
+
+  const normalize = value => String(value || "").toLocaleLowerCase("kk").replace(/\s+/g," ").trim();
+  const models = groups.flatMap(([brand, brandAliases, names]) =>
+    names.map(model => {
+      const name = brand === "iPhone" ? "iPhone " + model :
+        brand === "Samsung Galaxy" ? "Samsung Galaxy " + model :
+        brand === "Xiaomi" ? (model.startsWith("Poco ") ? model : "Xiaomi " + model) :
+        brand + " " + model;
+      const aliases = [brandAliases, name, name.replace(/\s+/g,""), model].join(" ");
+      return {name, aliases, image: photoByModel[name] || ""};
+    })
+  );
+
+  let activeIndex = -1;
+  function showPreview(model) {
+    previewName.textContent = model.name;
+    if (model.image) {
+      preview.classList.remove("name-only");
+      previewImage.style.display = "";
+      previewImage.classList.remove("image-failed");
+      previewImage.alt = model.name + " телефонының суреті";
+      previewImage.src = model.image;
+      previewImage.onerror = () => {
+        preview.classList.add("name-only");
+        previewImage.style.display = "none";
+      };
+    } else {
+      preview.classList.add("name-only");
+      previewImage.removeAttribute("src");
+      previewImage.style.display = "none";
+    }
+    preview.hidden = false;
+  }
+  function hideList() {
+    list.hidden = true;
+    input.setAttribute("aria-expanded","false");
+    activeIndex = -1;
+  }
+  function choose(model) {
+    input.value = model.name;
+    showPreview(model);
+    hideList();
+    input.setAttribute("aria-activedescendant","");
+    input.dispatchEvent(new Event("change",{bubbles:true}));
+  }
+  function makeOption(model, detailText) {
+    const option = document.createElement("button");
+    option.type = "button";
+    option.className = "phone-model-option";
+    option.setAttribute("role","option");
+    option.setAttribute("aria-label",model.name);
+    if (model.image) {
+      const image = document.createElement("img");
+      image.src = model.image;
+      image.alt = "";
+      image.loading = "lazy";
+      image.onerror = () => image.remove();
+      option.append(image);
+    }
+    const label = document.createElement("span");
+    const name = document.createElement("strong");
+    name.textContent = model.name;
+    const detail = document.createElement("small");
+    detail.textContent = detailText || (model.image ? "Фото бар · Модельді таңдау" : "Атауы бойынша таңдау");
+    label.append(name,detail);
+    option.append(label);
+    option.addEventListener("click",() => choose(model));
+    return option;
+  }
+  function drawList() {
+    const query = normalize(input.value);
+    const matches = (query
+      ? models.filter(model => normalize(model.name + " " + model.aliases).includes(query))
+      : models.slice(0,8)
+    ).slice(0,10);
+    list.replaceChildren();
+    activeIndex = -1;
+
+    matches.forEach(model => list.append(makeOption(model)));
+
+    const exactMatch = models.find(model => normalize(model.name) === query);
+    if (query.length >= 2 && !exactMatch) {
+      list.append(makeOption({name:input.value.trim(),image:""}, "Модель табылмаса — тек атауын сақтау"));
+    } else if (!matches.length && query.length < 2) {
+      const empty = document.createElement("div");
+      empty.className = "phone-model-empty";
+      empty.textContent = "Телефон маркасын немесе моделін жазыңыз.";
+      list.append(empty);
+    }
+    list.hidden = false;
+    input.setAttribute("aria-expanded","true");
+  }
+
+  input.addEventListener("input",() => {
+    const exact = models.find(model => normalize(model.name) === normalize(input.value));
+    if (exact) showPreview(exact);
+    else if (input.value.trim()) showPreview({name:input.value.trim(),image:""});
+    else preview.hidden = true;
+    drawList();
+  });
+  input.addEventListener("focus",() => drawList());
+  input.addEventListener("blur",() => {
+    if (input.value.trim()) {
+      const exact=models.find(model=>normalize(model.name)===normalize(input.value));
+      showPreview(exact || {name:input.value.trim(),image:""});
+    }
+  });
+  input.addEventListener("keydown",event => {
+    if (event.key === "Escape") { hideList(); return; }
+    const options=Array.from(list.querySelectorAll(".phone-model-option"));
+    if (!options.length) return;
+    if (event.key==="ArrowDown"||event.key==="ArrowUp") {
+      event.preventDefault();
+      activeIndex=(activeIndex+(event.key==="ArrowDown"?1:options.length-1))%options.length;
+      options[activeIndex].focus();
+    }
+    if(event.key==="Enter"&&list.contains(document.activeElement)){
+      event.preventDefault();
+      document.activeElement.click();
+    }
+  });
+  document.addEventListener("click",event=>{
+    if(!event.target.closest(".phone-picker"))hideList();
+  });
+  clear.addEventListener("click",()=>{
+    input.value="";
+    preview.hidden=true;
+    input.focus();
+    drawList();
+  });
+  form.addEventListener("reset",()=>{
+    preview.hidden=true;
+    preview.classList.remove("name-only");
+    previewImage.style.display="";
+    hideList();
+  });
+  input.dataset.modelCatalogCount=String(models.length);
+})();
+
+function updateMapPoint(lat, lng) {
+  const point = {lat: Number(lat.toFixed(6)), lng: Number(lng.toFixed(6))};
+  selectedPoint = point;
+  locationConfirmed = true;
+
+  if (!locationMarker) {
+    locationMarker = L.marker([point.lat, point.lng], {draggable: true}).addTo(serviceMap);
+    locationMarker.on("dragend", () => {
+      const moved = locationMarker.getLatLng();
+      updateMapPoint(moved.lat, moved.lng);
+    });
+  } else {
+    locationMarker.setLatLng([point.lat, point.lng]);
+  }
+
+  locationMarker.bindPopup("Жөндеу жасалатын орын").openPopup();
+  mapStatus.classList.remove("error");
+  mapStatus.textContent = "✓ Таңдалған нүкте: " + point.lat.toFixed(6) + ", " + point.lng.toFixed(6);
+  directionsLink.href = "https://www.google.com/maps/dir/?api=1&destination=" + point.lat + "," + point.lng;
+  directionsLink.hidden = false;
+  clearPointButton.disabled = false;
+}
+
+function clearMapPoint() {
+  selectedPoint = null;
+  locationConfirmed = false;
+  if (locationMarker && serviceMap) serviceMap.removeLayer(locationMarker);
+  locationMarker = null;
+  directionsLink.hidden = true;
+  directionsLink.removeAttribute("href");
+  clearPointButton.disabled = true;
+  mapStatus.classList.remove("error");
+  mapStatus.textContent = "Картадан үйіңізді немесе жөндеу жасалатын орынды түртіңіз.";
+}
+
+function initServiceMap() {
+  if (serviceMap) return;
+  if (!window.L) {
+    mapStatus.textContent = "Карта жүктелмеді. Интернетті тексеріп, бетті қайта ашыңыз.";
+    mapStatus.classList.add("error");
+    locateButton.disabled = true;
+    return;
+  }
+
+  serviceMap = L.map("serviceMap", {scrollWheelZoom: false}).setView([43.205, 76.78], 10);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(serviceMap);
+
+  serviceMap.on("click", event => updateMapPoint(event.latlng.lat, event.latlng.lng));
+  locateButton.disabled = false;
+  setTimeout(() => serviceMap && serviceMap.invalidateSize(true), 150);
+}
+
+function getBrowserPosition(options) {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject, options);
+  });
+}
+
+locateButton.addEventListener("click", async () => {
+  if (!navigator.geolocation) {
+    mapStatus.textContent = "Бұл браузер орналасқан жерді анықтауды қолдамайды. Картадан орынды қолмен белгілеңіз.";
+    mapStatus.classList.add("error");
+    return;
+  }
+
+  if (!serviceMap) {
+    mapStatus.textContent = "Карта әлі жүктеліп жатыр. Бір сәттен кейін қайталап көріңіз.";
+    mapStatus.classList.remove("error");
+    return;
+  }
+
+  locateButton.disabled = true;
+  locateButton.textContent = "Орныңыз анықталып жатыр…";
+  mapStatus.classList.remove("error");
+  mapStatus.textContent = "Телефонның орналасқан жерін іздеп жатырмыз…";
+
+  let lastError = null;
+  const attempts = [
+    {enableHighAccuracy: false, timeout: 25000, maximumAge: 180000},
+    {enableHighAccuracy: true, timeout: 40000, maximumAge: 60000}
+  ];
+
+  try {
+    let position = null;
+
+    for (let index = 0; index < attempts.length; index++) {
+      try {
+        if (index === 1) {
+          mapStatus.textContent = "Орныңызды дәлірек анықтап жатырмыз…";
+        }
+        position = await getBrowserPosition(attempts[index]);
+        break;
+      } catch (error) {
+        lastError = error;
+        // Permission denial cannot be fixed by a second GPS attempt.
+        if (error && error.code === 1) break;
+      }
+    }
+
+    if (!position) {
+      if (lastError && lastError.code === 1) {
+        mapStatus.textContent = "Орналасқан жерге рұқсат берілмеген. Телефон баптауынан браузерге Location рұқсатын беріп, қайта көріңіз.";
+        mapStatus.classList.add("error");
+      } else {
+        // Do not show a timeout/expired error. Leave the map usable for manual selection.
+        mapStatus.textContent = "Телефонның орнын автоматты анықтау әзірге мүмкін болмады. GPS-ті қосып қайталаңыз немесе картадан орынды түртіп белгілеңіз.";
+        mapStatus.classList.remove("error");
+      }
+      return;
+    }
+
+    const {latitude, longitude, accuracy} = position.coords;
+    serviceMap.setView([latitude, longitude], accuracy && accuracy > 500 ? 14 : 16, {animate: true, duration: 0.7});
+    updateMapPoint(latitude, longitude);
+    locationConfirmed = true;
+
+    const accuracyText = accuracy ? " (шамамен " + Math.round(accuracy) + " м дәлдікпен)" : "";
+    mapStatus.textContent = "Орналасқан жеріңіз картада белгіленді" + accuracyText + ". Қажет болса, белгіні жылжытыңыз.";
+    mapStatus.classList.remove("error");
+  } finally {
+    locateButton.disabled = false;
+    locateButton.textContent = "◎ Менің орнымды анықтау";
+  }
+});
+
+clearPointButton.addEventListener("click", clearMapPoint);
+initServiceMap();
+
+function setVerifyStatus(message, kind = "") {
+  verifyStatus.textContent = message;
+  verifyStatus.className = "sub " + kind;
+}
+
+function showNotice(message) {
+  notice.style.display = "block";
+  notice.textContent = message;
+}
+
+function getAuthSession() {
+  // Clear an old WhatsApp-authenticated session; all new requests require Telegram login.
+  if (sessionStorage.getItem("qamqorAuthMethod") === "whatsapp") {
+    sessionStorage.removeItem("qamqorAuthSession");
+    sessionStorage.removeItem("qamqorAuthMethod");
+  }
+  return sessionStorage.getItem("qamqorAuthSession") || "";
+}
+
+function collectPayload() {
+  const data = new FormData(form);
+  const whatsappNumber = String(data.get("whatsapp_number") || "").trim();
+  const extraDetails = String(data.get("details") || "").trim();
+  const street = String(data.get("street") || "").trim();
+  const house = String(data.get("house") || "").trim();
+  const noStreet = !!document.getElementById("noStreet")?.checked;
+  const noHouse = !!document.getElementById("noHouse")?.checked;
+  const address = [noStreet ? "Көше атауы жоқ" : street, noHouse ? "Үй нөмірі жоқ" : house].filter(Boolean).join(", ");
+  const mapLink = selectedPoint ? "Картадағы орны: https://maps.google.com/?q=" + selectedPoint.lat.toFixed(6) + "," + selectedPoint.lng.toFixed(6) : "";
+  return {
+    brand: String(data.get("brand") || "").trim(),
+    problem: String(data.get("problem") || "").trim(),
+    part_type: String(data.get("part_type") || "Қолданылмайды").trim(),
+    details: [extraDetails, mapLink].filter(Boolean).join("\n"),
+    address, street, house, no_street: noStreet, no_house: noHouse,
+    lat: selectedPoint ? selectedPoint.lat : null,
+    lng: selectedPoint ? selectedPoint.lng : null,
+    whatsapp_number: whatsappNumber,
+    consent: !!document.getElementById("contactConsent")?.checked
+  };
+}
+function validPayload(payload) {
+  if (!payload.brand || !payload.problem || !String(document.getElementById("details").value || "").trim()) {
+    showNotice("Телефон моделін, жөндеу түрін және ақау сипаттамасын толтырыңыз."); return false;
+  }
+  const whatsappDigits = String(document.getElementById("whatsappNumber").value || "").replace(/\D/g, "");
+  if (whatsappDigits.length < 10 || whatsappDigits.length > 15) { showNotice("WhatsApp нөмірін дұрыс енгізіңіз. Мысалы: +7 777 123 45 67."); document.getElementById("whatsappNumber").focus(); return false; }
+  if (!payload.address) { showNotice("Көше немесе үй нөмірі жоқ болса, арнайы белгіні қойыңыз."); return false; }
+  if (!selectedPoint || !locationConfirmed) { showNotice("Келесі қадамға өту үшін картадан орынды белгілеңіз немесе GPS арқылы анықтаңыз."); document.getElementById("serviceMap").scrollIntoView({behavior:"smooth",block:"center"}); return false; }
+  if (!payload.consent) { showNotice("Өтінімді өңдеу үшін келісіміңіз қажет."); return false; }
+  return true;
+}
+
+/* Required 7-step repair wizard. Telegram OAuth below remains unchanged. */
+(() => {
+  const steps = Array.from(form.querySelectorAll("[data-wizard-step]"));
+  const progressText = document.getElementById("wizardProgressText");
+  const progressName = document.getElementById("wizardProgressName");
+  const progressBar = document.getElementById("wizardProgressBar");
+  const names = ["Телефон","Жөндеу түрі","Ақау","Мекенжай","Карта","WhatsApp","Telegram"];
+  let current = 0;
+
+  function render(index, scroll = true) {
+    current = Math.max(0, Math.min(steps.length - 1, index));
+    steps.forEach((step, i) => {
+      step.hidden = i !== current;
+      step.setAttribute("aria-hidden", i === current ? "false" : "true");
+    });
+    progressText.textContent = (current + 1) + " / " + steps.length + " қадам";
+    progressName.textContent = names[current] || "";
+    progressBar.style.width = ((current + 1) / steps.length * 100) + "%";
+    if (current === 4) {
+      const refreshMap = () => {
+        if (!serviceMap && window.L) initServiceMap();
+        if (serviceMap) serviceMap.invalidateSize(true);
+      };
+      requestAnimationFrame(() => {
+        refreshMap();
+        setTimeout(refreshMap, 180);
+        setTimeout(refreshMap, 550);
+      });
+    }
+    if (scroll) {
+      const phoneCard = document.getElementById("repair");
+      if (document.body.classList.contains("qamqor-phone-form-open") && phoneCard) {
+        phoneCard.scrollTo({top:0, behavior:"smooth"});
+      } else {
+        const top = form.getBoundingClientRect().top + window.scrollY - 18;
+        window.scrollTo({top, behavior:"smooth"});
+      }
+    }
+  }
+
+  function validate(index) {
+    if (index === 5 && !document.getElementById("contactConsent")?.checked) {
+      showNotice("Өтінімді өңдеу және байланыс деректерін пайдалану үшін келісіміңіз қажет.");
+      document.getElementById("contactConsent")?.focus();
+      return false;
+    }
+    const fields = {
+      0: document.getElementById("brand"),
+      1: document.getElementById("problem"),
+      2: document.getElementById("details"),
+      5: document.getElementById("whatsappNumber")
+    };
+    if (index === 3) {
+      const street = document.getElementById("street").value.trim();
+      const house = document.getElementById("house").value.trim();
+      const noStreet = document.getElementById("noStreet").checked;
+      const noHouse = document.getElementById("noHouse").checked;
+      if (!street && !noStreet) { showNotice("Көше атауын енгізіңіз немесе «Көше атауы жоқ» деп белгілеңіз."); document.getElementById("street").focus(); return false; }
+      if (!house && !noHouse) { showNotice("Үй нөмірін енгізіңіз немесе «Үй нөмірі жоқ» деп белгілеңіз."); document.getElementById("house").focus(); return false; }
+      return true;
+    }
+    if (index === 4) {
+      if (!selectedPoint || !locationConfirmed) {
+        showNotice("Картадан орынды түртіп белгілеңіз немесе «Менің орнымды анықтау» батырмасын пайдаланыңыз.");
+        mapStatus.classList.add("error");
+        document.getElementById("serviceMap").scrollIntoView({behavior:"smooth",block:"center"});
+        return false;
+      }
+      return true;
+    }
+    const field = fields[index];
+    if (!field) return true;
+    if (!field.checkValidity()) {
+      field.reportValidity();
+      field.focus();
+      return false;
+    }
+    if (index === 5) {
+      const digits = field.value.replace(/\D/g, "");
+      if (digits.length < 10 || digits.length > 15) {
+        showNotice("WhatsApp нөмірін дұрыс енгізіңіз. Мысалы: +7 777 123 45 67.");
+        field.focus();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  form.querySelectorAll("[data-wizard-next]").forEach(button => {
+    button.addEventListener("click", () => {
+      if (!validate(current)) return;
+      render(current + 1);
+    });
+  });
+  form.querySelectorAll("[data-wizard-back]").forEach(button => {
+    button.addEventListener("click", () => render(current - 1));
+  });
+  form.addEventListener("reset", () => {
+    setTimeout(() => render(0, false), 0);
+  });
+  const cancelButton = document.getElementById("cancelRepairButton");
+  if (cancelButton) {
+    cancelButton.addEventListener("click", () => {
+      if (!window.confirm("Толтырылған өтінімнің барлық дерегін тазартасыз ба?")) return;
+      sessionStorage.removeItem("qamqorPendingRequest");
+      sessionStorage.removeItem("qamqorAutoSend");
+      sessionStorage.removeItem("qamqorQuoteRequest");
+      activeQuoteRequest = null;
+      clearTimeout(quotePollTimer);
+      form.reset();
+      if (typeof clearMapPoint === "function") clearMapPoint();
+      showNotice("Өтінім деректері тазартылды. Қайта бастауға болады.");
+      setVerifyStatus("Өтінім жіберілген жоқ. Қажет болса, қайта толтырыңыз.");
+      render(0, false);
+    });
+  }
+  render(0, false);
+})();
+
+let activeQuoteRequest = null;
+let quotePollTimer = null;
+let quotePollBusy = false;
+
+function showQuotePanel(saved) {
+  activeQuoteRequest = saved;
+  document.getElementById("quotePanel").hidden = false;
+  form.hidden = true;
+  document.getElementById("quotePanelId").textContent = "Өтінім ID: " + saved.request_id;
+  document.getElementById("quotePanel").scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+function showManagerContacts(manager) {
+  const box=document.getElementById("managerContactLinks");
+  const wa=document.getElementById("managerWhatsappLink");
+  const tg=document.getElementById("managerTelegramLink");
+  const phone=String(manager?.phone||"").replace(/\D/g,"");
+  const username=String(manager?.username||"").replace(/^@/,"");
+  wa.hidden=!phone;tg.hidden=!username;
+  if(phone)wa.href="https://wa.me/"+phone;else wa.removeAttribute("href");
+  if(username)tg.href="https://t.me/"+encodeURIComponent(username);else tg.removeAttribute("href");
+  box.hidden=true;
+}
+function revealManagerContacts(){
+  const box=document.getElementById("managerContactLinks");
+  if(box.querySelector("a:not([hidden])"))box.hidden=false;
+}
+function setQuoteStatus(message){document.getElementById("quotePanelStatus").textContent=message;}
+let activeQuoteData=null;
+function moneyText(value){
+  const amount=Number(value);
+  return (Number.isFinite(amount)?amount:0).toLocaleString("ru-RU")+" ₸";
+}
+function renderQuoteAmounts(quote){
+  activeQuoteData=quote;
+  document.getElementById("quoteAmounts").hidden=false;
+  document.getElementById("quotePartType").textContent=quote.part_type||"—";
+  document.getElementById("quotePartCost").textContent=moneyText(quote.part_cost);
+  document.getElementById("quoteDeliveryCost").textContent=moneyText(quote.delivery_cost);
+  document.getElementById("quoteLaborCost").textContent=moneyText(quote.labor_cost);
+  document.getElementById("quoteTotal").textContent=moneyText(quote.total);
+}
+async function createAutoQuotePdf(saved,quote){
+  if(!window.jspdf?.jsPDF)throw new Error("PDF модулі жүктелмеді.");
+  const {jsPDF}=window.jspdf,doc=new jsPDF({unit:"mm",format:"a4"});
+  let font="helvetica";
+  try{
+    const response=await fetch("https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io/fonts/NotoSans/hinted/ttf/NotoSans-Regular.ttf");
+    if(response.ok){const bytes=new Uint8Array(await response.arrayBuffer());let binary="";for(let i=0;i<bytes.length;i+=0x8000)binary+=String.fromCharCode(...bytes.subarray(i,i+0x8000));doc.addFileToVFS("NotoSans.ttf",btoa(binary));doc.addFont("NotoSans.ttf","NotoSans","normal");font="NotoSans";}
+  }catch(_){}
+  doc.setFont(font);doc.setFillColor(11,22,38);doc.roundedRect(8,8,194,281,5,5,"F");
+  doc.setTextColor(126,190,255);doc.setFontSize(13);doc.text("QAMQOR PHONE",18,23);
+  doc.setTextColor(255,255,255);doc.setFontSize(19);doc.text("Болжамды жөндеу сметасы",18,40);
+  doc.setFontSize(9);doc.text("Смета ID: "+saved.request_id,18,51);doc.text("Күні: "+new Date().toLocaleString("kk-KZ"),18,58);
+  const p=saved.payload||{},m=saved.manager||{};let y=73;
+  const lines=["Клиент: "+(p.client_name||"—"),"WhatsApp: "+(p.whatsapp_number||"—"),"Telegram: "+(p.telegram_username?"@"+p.telegram_username:"—"),"Telegram ID: "+(p.telegram_id||"—"),"Телефон: "+(p.brand||"—"),"Қызмет: "+(p.problem||"—"),"Бөлшек сапасы: "+(p.part_type||"—"),"Ақау: "+(p.details||"—"),"Мекенжай: "+(p.address||"—"),"Координат: "+(p.lat??"—")+", "+(p.lng??"—"),"Менеджер WhatsApp: "+(m.phone||"—"),"Менеджер Telegram: "+(m.username?"@"+m.username:"—")];
+  doc.setFontSize(10);
+  for(const line of lines){const wrapped=doc.splitTextToSize(line,174);if(y+wrapped.length*5>178){doc.addPage();doc.setFont(font);y=20;}doc.text(wrapped,18,y);y+=wrapped.length*5+2;}
+  y+=5;doc.setDrawColor(76,112,151);doc.line(18,y,192,y);y+=12;
+  const rows=[["Бөлшек құны",quote.part_cost],["Барып жөндеу құны",quote.delivery_cost],["Жұмыс бағасы",quote.labor_cost]];
+  doc.setFontSize(11);doc.setTextColor(235,242,250);
+  for(const row of rows){doc.text(row[0],18,y);doc.text(Number(row[1]||0).toLocaleString("ru-RU")+" ₸",190,y,{align:"right"});y+=9;}
+  y+=4;doc.setTextColor(126,220,170);doc.setFontSize(16);doc.text("Жалпы сома: "+Number(quote.total||0).toLocaleString("ru-RU")+" ₸",18,y);
+  doc.setTextColor(190,205,222);doc.setFontSize(8);doc.text("Бұл — болжамды жөндеу сметасы, төлем немесе фискалдық чек емес.",18,278);
+  return doc.output("blob");
+}
+async function sendAutoQuotePdf(saved,quote){
+  const key="qamqorAutoReceiptSent:"+saved.request_id;if(sessionStorage.getItem(key)==="yes")return;
+  const pdf=await createAutoQuotePdf(saved,quote),data=new FormData();
+  data.append("request_id",saved.request_id);data.append("access_token",saved.access_token);data.append("pdf",pdf,"QamqorPhone-"+saved.request_id+".pdf");
+  const response=await fetch(API+"/quote/receipt",{method:"POST",body:data}),result=await response.json().catch(()=>({}));
+  if(!response.ok||!result.ok)throw new Error(result.error||"PDF Telegram-ға жіберілмеді.");
+  sessionStorage.setItem(key,"yes");
+}
+async function downloadQuotePng(saved,quote){
+  const canvas=document.createElement("canvas");canvas.width=1200;canvas.height=1500;
+  const ctx=canvas.getContext("2d");if(!ctx)throw new Error("PNG дайындау мүмкін болмады.");
+  ctx.fillStyle="#edf2f7";ctx.fillRect(0,0,1200,1500);ctx.fillStyle="#10243d";ctx.fillRect(32,32,1136,1436);
+  ctx.fillStyle="#ffffff";ctx.fillRect(54,54,1092,1392);ctx.fillStyle="#0b2a4a";ctx.fillRect(54,54,1092,220);
+  ctx.fillStyle="#8fc7ff";ctx.font="bold 30px Arial";ctx.fillText("QAMQOR PHONE",100,115);
+  ctx.fillStyle="#ffffff";ctx.font="bold 43px Arial";ctx.fillText("БОЛЖАМДЫ ЖӨНДЕУ СМЕТАСЫ",100,190);
+  const p=saved.payload||{},m=saved.manager||{};let y=340;
+  const line=(label,value)=>{ctx.fillStyle="#718096";ctx.font="21px Arial";ctx.fillText(label,100,y);ctx.fillStyle="#172b44";ctx.font="bold 23px Arial";let v=String(value??"—"),max=900;while(ctx.measureText(v).width>max&&v.length>4)v=v.slice(0,-1);ctx.fillText(v,100,y+38);y+=92;};
+  line("СМЕТА НӨМІРІ",saved.request_id);line("КЛИЕНТ",p.client_name||"—");line("КЛИЕНТ WHATSAPP",p.whatsapp_number||"—");
+  line("ТЕЛЕФОН",p.brand||"—");line("ЖӨНДЕУ",p.problem||"—");line("БӨЛШЕК САПАСЫ",p.part_type||"—");
+  line("МЕКЕНЖАЙ",p.address||"—");line("ОРНАЛАСҚАН ЖЕРІ",(p.lat??"—")+", "+(p.lng??"—"));
+  y+=8;ctx.strokeStyle="#cbd5e1";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(100,y);ctx.lineTo(1100,y);ctx.stroke();y+=60;
+  for(const [label,value] of [["Бөлшек құны",quote.part_cost],["Барып жөндеу құны",quote.delivery_cost],["Жұмыс бағасы",quote.labor_cost]]){
+    ctx.fillStyle="#42566e";ctx.font="25px Arial";ctx.fillText(label,100,y);ctx.textAlign="right";ctx.fillStyle="#172b44";ctx.font="bold 27px Arial";ctx.fillText(moneyText(value),1100,y);ctx.textAlign="left";y+=74;
+  }
+  ctx.fillStyle="#e9f2fb";ctx.fillRect(80,y-12,1040,118);ctx.fillStyle="#173d63";ctx.font="bold 27px Arial";ctx.fillText("ЖАЛПЫ БОЛЖАМДЫ СОМА",110,y+35);
+  ctx.textAlign="right";ctx.fillStyle="#08794f";ctx.font="bold 42px Arial";ctx.fillText(moneyText(quote.total),1080,y+45);ctx.textAlign="left";
+  ctx.fillStyle="#64748b";ctx.font="19px Arial";ctx.fillText("Менеджер: "+(m.phone||"—")+(m.username?" · @"+m.username:""),100,1370);
+  ctx.fillText("Бұл — алдын ала смета, төлем немесе фискалдық чек емес.",100,1410);
+  const blob=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));if(!blob)throw new Error("PNG файлын жасау мүмкін болмады.");
+  const url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download="QamqorPhone-smeta-"+saved.request_id+".png";
+  document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+async function pollQuoteStatus(){
+  if(!activeQuoteRequest||quotePollBusy)return;quotePollBusy=true;
+  try{
+    const response=await fetch(API+"/quote/status",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({request_id:activeQuoteRequest.request_id,access_token:activeQuoteRequest.access_token})});
+    const result=await response.json().catch(()=>({}));if(!response.ok||!result.ok)throw new Error(result.error||"status_check_failed");
+    if(result.client_name)activeQuoteRequest.payload.client_name=result.client_name;if(result.telegram_username)activeQuoteRequest.payload.telegram_username=result.telegram_username;if(result.telegram_id)activeQuoteRequest.payload.telegram_id=result.telegram_id;if(result.manager)activeQuoteRequest.manager=result.manager;
+    const agree=document.getElementById("quoteAgreeButton");
+    if(result.quote&&["auto_quoted","quoted","customer_agreed"].includes(result.status))renderQuoteAmounts(result.quote);
+    if(result.status==="auto_quoted"&&result.quote){
+      setQuoteStatus("✓ Дәл сәйкес сақталған баға табылды. Смета автоматты жасалды. Менеджер сізге WhatsApp немесе Telegram арқылы хабарласады. Күте тұрыңыз.");
+      showManagerContacts(result.manager);agree.hidden=true;
+      try{await sendAutoQuotePdf(activeQuoteRequest,result.quote);}catch(e){setQuoteStatus("Смета дайын. PDF Telegram-ға жіберу уақытша сәтсіз аяқталды; бет ашық тұрса, қайта тексеріледі.");}
+    }else if(result.status==="quoted"){
+      setQuoteStatus("✓ Менеджер сметаны толтырды. Бағаны қарап, «Бағамен келісу» батырмасын басыңыз.");
+      showManagerContacts(result.manager);agree.hidden=false;
+    }else if(result.status==="customer_agreed"){
+      setQuoteStatus("✓ Бағамен келісім тіркелді. Менеджермен тікелей байланысып, кездесу орнын нақтылаңыз.");
+      showManagerContacts(result.manager);revealManagerContacts();agree.hidden=true;
+    }else if(result.status==="manager_accepted"){
+      setQuoteStatus("✓ Менеджер өтінімді қабылдады. Қазір бөлшек пен жөндеу құнын есептеп жатыр.");
+      document.getElementById("managerContactLinks").hidden=true;agree.hidden=true;
+    }else if(result.status==="waiting"||Number(result.attempts||0)>=5){
+      setQuoteStatus("Мамандар бос емес. Сізге кейінірек WhatsApp нөміріңізге немесе тіркелген Telegram аккаунтыңызға хабарласамыз. Өтініміңіз сақталды, күте тұрыңыз.");agree.hidden=true;
+    }else if(result.status==="cancelled"){
+      setQuoteStatus("Өтінімнен бас тартылды.");document.getElementById("quoteCancelButton").hidden=true;document.getElementById("quoteNewRequestButton").hidden=false;agree.hidden=true;
+    }else{setQuoteStatus("Мастер ізделуде. Өтініміңіз тіркелді, хабарламаларыңызды тексеріп отырыңыз.");agree.hidden=true;}
+  }catch(e){setQuoteStatus("Өтінім күйін тексеру уақытша мүмкін болмады. Бет ашық тұрса, қайта тексереміз.");}
+  finally{quotePollBusy=false;clearTimeout(quotePollTimer);quotePollTimer=setTimeout(pollQuoteStatus,12000);}
+}
+
+async function sendRequest(payload, sessionId) {
+  if (!sessionId) throw new Error("Telegram арқылы растау қажет.");
+  verifyButton.disabled = true; setVerifyStatus("Өтінім серверге жіберілуде…");
+  try {
+    const response = await fetch(API + "/request", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...payload,session_id:sessionId})});
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.ok) {
+      if (result.error === "auth_session_expired") { sessionStorage.removeItem("qamqorAuthSession"); sessionStorage.setItem("qamqorPendingRequest", JSON.stringify(payload)); setVerifyStatus("Сессия уақыты аяқталды. Telegram арқылы қайта растаңыз.", "failed"); }
+      if (result.error === "contact_consent_required") throw new Error("Байланыс деректерін өңдеуге келісім қажет.");
+      throw new Error(result.error || "Өтінім жіберілмеді");
+    }
+    sessionStorage.removeItem("qamqorAuthSession"); sessionStorage.removeItem("qamqorPendingRequest"); sessionStorage.removeItem("qamqorAutoSend");
+    const saved = {request_id:result.request_id,access_token:result.access_token,payload:{...payload,client_name:result.client_name||"",telegram_username:result.telegram_username||"",telegram_id:result.telegram_id||""}};
+    if (result.request_id && result.access_token) {
+      sessionStorage.setItem("qamqorQuoteRequest", JSON.stringify(saved)); showQuotePanel(saved);
+      setVerifyStatus("✓ Өтінім қабылданды. Менеджер іздеу басталды.", "verified");
+      clearTimeout(quotePollTimer); await pollQuoteStatus();
+    } else {
+      setVerifyStatus("Өтінімді жіберу аяқталмады. Қайталап көріңіз.", "failed");
+    }
+  } catch (error) {
+    showNotice("Жіберу қатесі: " + (error.message || "Қайталап көріңіз.")); setVerifyStatus("Өтінім жіберілмеді. Қайта тексеріңіз.", "failed");
+  } finally { verifyButton.disabled = false; }
+}
+
+document.getElementById("quoteAgreeButton").addEventListener("click", async () => {
+  if(!activeQuoteRequest||!activeQuoteData)return;
+  const button=document.getElementById("quoteAgreeButton");button.disabled=true;
+  try{
+    const response=await fetch(API+"/quote/agree",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({request_id:activeQuoteRequest.request_id,access_token:activeQuoteRequest.access_token})});
+    const result=await response.json().catch(()=>({}));if(!response.ok||!result.ok)throw new Error(result.error||"agree_failed");
+    if(result.manager)activeQuoteRequest.manager=result.manager;
+    setQuoteStatus("✓ Бағамен келісім тіркелді. Менеджерге WhatsApp немесе Telegram арқылы жазыңыз. Кездесу орнын менеджермен нақтылаңыз.");
+    showManagerContacts(result.manager||activeQuoteRequest.manager);revealManagerContacts();button.hidden=true;
+    try{await downloadQuotePng(activeQuoteRequest,result.quote||activeQuoteData);}catch(e){setQuoteStatus("Келісім тіркелді. PNG файлын сақтау мүмкін болмады: "+(e.message||"Қате"));}
+  }catch(e){setQuoteStatus("Келісімді тіркеу мүмкін болмады. Қайта көріңіз.");button.disabled=false;}
+});
+document.getElementById("quoteCancelButton").addEventListener("click", async () => {
+  if (!activeQuoteRequest || !window.confirm("Осы өтінімнен бас тартасыз ба?")) return;
+  const button = document.getElementById("quoteCancelButton"); button.disabled = true;
+  try {
+    const response = await fetch(API + "/quote/cancel", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({request_id:activeQuoteRequest.request_id,access_token:activeQuoteRequest.access_token})});
+    const result = await response.json().catch(() => ({})); if (!response.ok || !result.ok) throw new Error(result.error || "cancel_failed");
+    setQuoteStatus("Өтінімнен бас тартылды."); button.hidden = true; document.getElementById("quoteNewRequestButton").hidden = false; clearTimeout(quotePollTimer);
+  } catch (error) { setQuoteStatus("Бас тартуды жіберу мүмкін болмады. Қайталап көріңіз."); button.disabled = false; }
+});
+document.getElementById("quoteNewRequestButton").addEventListener("click", () => {
+  sessionStorage.removeItem("qamqorQuoteRequest"); activeQuoteRequest = null; clearTimeout(quotePollTimer);
+  document.getElementById("quotePanel").hidden = true; document.getElementById("quoteAmounts").hidden = true; document.getElementById("quoteAgreeButton").hidden = true; document.getElementById("quoteAgreeButton").disabled = false; document.getElementById("quoteCancelButton").hidden = false; document.getElementById("quoteCancelButton").disabled = false;
+  document.getElementById("quoteNewRequestButton").hidden = true; document.getElementById("managerContactLinks").hidden = true; activeQuoteData = null;
+  form.hidden = false; form.reset(); clearMapPoint();
+});
+if (getAuthSession()) {
+  setVerifyStatus("✓ Telegram арқылы расталдыңыз.", "verified");
+  verifyButton.textContent = "✓ Telegram расталды";
+}
+
+const authResult = sessionStorage.getItem("qamqorAuthResult");
+if (authResult) {
+  setVerifyStatus(authResult, authResult.startsWith("✓") ? "verified" : "failed");
+  sessionStorage.removeItem("qamqorAuthResult");
+}
+
+// Telegram-нан сайтқа қайтқан соң, алдын ала сақталған өтініш автоматты жіберіледі.
+const pendingRaw = sessionStorage.getItem("qamqorPendingRequest");
+if (getAuthSession() && pendingRaw && sessionStorage.getItem("qamqorAutoSend") === "yes") {
+  try {
+    const pending = JSON.parse(pendingRaw);
+    sendRequest(pending, getAuthSession());
+  } catch {
+    sessionStorage.removeItem("qamqorPendingRequest");
+    sessionStorage.removeItem("qamqorAutoSend");
+    showNotice("Сақталған өтінішті оқу мүмкін болмады. Мәліметтерді қайта толтырыңыз.");
+  }
+}
+
+const savedQuoteRequest = sessionStorage.getItem("qamqorQuoteRequest");
+if (savedQuoteRequest) {
+  try {
+    const saved = JSON.parse(savedQuoteRequest);
+    showQuotePanel(saved);
+    pollQuoteStatus();
+  } catch {
+    sessionStorage.removeItem("qamqorQuoteRequest");
+  }
+}
+
+verifyButton.addEventListener("click", async () => {
+  notice.style.display = "none";
+  const payload = collectPayload();
+  if (!validPayload(payload)) return;
+
+  if (getAuthSession()) {
+    await sendRequest(payload, getAuthSession());
+    return;
+  }
+
+  // Telegram-ға өтер алдында өтінішті осы браузер сессиясында уақытша сақтаймыз.
+  sessionStorage.setItem("qamqorPendingRequest", JSON.stringify(payload));
+  sessionStorage.setItem("qamqorAutoSend", "yes");
+  verifyButton.disabled = true;
+  setVerifyStatus("Telegram авторизациясы ашылуда…");
+
+  try {
+    const randomBytes = length => crypto.getRandomValues(new Uint8Array(length));
+    const base64url = bytes => btoa(String.fromCharCode(...bytes))
+      .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+    const verifier = base64url(randomBytes(32));
+    const state = base64url(randomBytes(32));
+    const nonce = base64url(randomBytes(32));
+    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier));
+    const challenge = base64url(new Uint8Array(digest));
+
+    sessionStorage.setItem("qamqorOidcVerifier", verifier);
+    sessionStorage.setItem("qamqorOidcState", state);
+    sessionStorage.setItem("qamqorOidcNonce", nonce);
+
+    const response = await fetch(API + "/auth/url?" + new URLSearchParams({state, nonce, challenge}));
+    const result = await response.json();
+    if (!response.ok || !result.url) throw new Error(result.error || "Telegram сілтемесін алу мүмкін болмады");
+    window.location.assign(result.url);
+  } catch (error) {
+    setVerifyStatus("Авторизация ашылмады: " + (error.message || "Қате"), "failed");
+    sessionStorage.removeItem("qamqorPendingRequest");
+    sessionStorage.removeItem("qamqorAutoSend");
+    verifyButton.disabled = false;
+  }
+});
+</script>
+
+
+
+
+<script>
+/* Prevent copying and the selection/context menu on page content.
+   Form fields remain editable and text inside them can still be selected. */
+(() => {
+  const isEditable = target =>
+    target instanceof Element &&
+    !!target.closest('input,textarea,select,[contenteditable="true"]');
+
+  ["copy","cut","selectstart","dragstart","contextmenu"].forEach(type => {
+    document.addEventListener(type, event => {
+      if (isEditable(event.target)) return;
+      event.preventDefault();
+    }, true);
+  });
+})();
+</script>
+
+
+<script id="qamqor-page-router">
+/* Simple page navigation: keeps the existing repair form and its integrations intact. */
+(() => {
+  const pages = Array.from(document.querySelectorAll("main [data-app-page]"));
+  const navLinks = Array.from(document.querySelectorAll(".main-nav a"));
+  const label = document.getElementById("pageContextLabel");
+  const index = document.getElementById("pageContextIndex");
+  const pageInfo = [{id:"top"},{id:"services"},{id:"repair"}];
+  if (!pages.length) return;
+
+  const reduceMotion = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function showPage(id, options = {}) {
+    const openRepairOnDuo = id === "repair";
+    if (openRepairOnDuo) {
+      window.qamqorOpenRequestWhenReady = true;
+      id = "top";
+    }
+
+    const activePage = pages.find(page => page.id === id);
+    if (!activePage) return;
+
+    if (window.qamqorPhoneForm && typeof window.qamqorPhoneForm.setHomeVisible === "function") {
+      window.qamqorPhoneForm.setHomeVisible(id === "top");
+    }
+    document.body.classList.toggle("qamqor-home-clean", id === "top");
+
+    pages.forEach(page => {
+      const active = page === activePage;
+      page.hidden = !active;
+      page.setAttribute("aria-hidden", String(!active));
+      page.classList.toggle("page-active", active);
+    });
+
+    const activeIndex = pageInfo.findIndex(item => item.id === id);
+    const info = pageInfo[activeIndex] || pageInfo[0];
+    if (label) label.textContent = info.label;
+    if (index) index.textContent =
+      String(activeIndex + 1).padStart(2,"0") + " / " + String(pageInfo.length).padStart(2,"0");
+
+    navLinks.forEach(link => {
+      const active = link.getAttribute("href") === "#" + id;
+      link.classList.toggle("is-active", active);
+      if (active) link.setAttribute("aria-current","page");
+      else link.removeAttribute("aria-current");
+    });
+
+    if (options.updateHistory && window.location.hash !== "#" + id) {
+      window.history.pushState({qamqorPage:id},"","#" + id);
+    }
+    if (options.scroll !== false) {
+      activePage.scrollTop = 0;
+      window.scrollTo({top:0,behavior:reduceMotion ? "auto" : "smooth"});
+    }
+    if (id === "repair" && typeof serviceMap !== "undefined" && serviceMap) {
+      requestAnimationFrame(() => serviceMap.invalidateSize());
+    }
+    if (openRepairOnDuo && window.qamqorPhoneForm &&
+        typeof window.qamqorPhoneForm.open === "function") {
+      window.qamqorPhoneForm.open();
+    }
+  }
+
+  window.qamqorShowPage = showPage;
+
+  document.addEventListener("click", event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) return;
+    const id = link.getAttribute("href").slice(1);
+    if (!pages.some(page => page.id === id)) return;
+    event.preventDefault();
+    showPage(id,{updateHistory:true});
+  });
+
+  window.addEventListener("popstate",() => {
+    showPage(window.location.hash.slice(1) || "top",{scroll:true});
+  });
+  window.addEventListener("hashchange",() => {
+    showPage(window.location.hash.slice(1) || "top",{scroll:true});
+  });
+
+  let initialPage = pages.some(page => page.id === window.location.hash.slice(1))
+    ? window.location.hash.slice(1) : "top";
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("code") ||
+        sessionStorage.getItem("qamqorPendingRequest") ||
+        sessionStorage.getItem("qamqorQuoteRequest")) {
+      initialPage = "repair";
+    }
+  } catch (_) {}
+  showPage(initialPage,{scroll:false});
+})();
+</script>
+
+
+<script id="qamqor-background-video-start">
+(() => {
+  const video = document.getElementById("qamqor-background-video");
+  if (!video) return;
+
+  const startAt = 6;
+  const backgroundVolume = 0.12;
+  let audioEnabled = false;
+
+  video.volume = backgroundVolume;
+
+  const seekToStart = () => {
+    if (!Number.isFinite(video.duration) || video.duration <= startAt) return;
+    try { video.currentTime = startAt; } catch (_) {}
+  };
+
+  const playMutedFallback = () => {
+    video.muted = true;
+    const playback = video.play();
+    if (playback && typeof playback.catch === "function") playback.catch(() => {});
+  };
+
+  const tryAudibleAutoplay = () => {
+    video.volume = backgroundVolume;
+    video.muted = false;
+    const playback = video.play();
+    if (playback && typeof playback.catch === "function") {
+      playback.catch(() => {
+        if (!audioEnabled) playMutedFallback();
+      });
+    }
+  };
+
+  const enableAudioAfterInteraction = () => {
+    if (audioEnabled) return;
+    audioEnabled = true;
+    video.volume = backgroundVolume;
+    video.muted = false;
+    const playback = video.play();
+    if (playback && typeof playback.catch === "function") {
+      playback.catch(() => { video.muted = true; });
+    }
+    ["pointerdown", "touchstart", "keydown"].forEach(type => {
+      document.removeEventListener(type, enableAudioAfterInteraction, true);
+    });
+  };
+
+  video.addEventListener("loadedmetadata", () => {
+    seekToStart();
+    tryAudibleAutoplay();
+    ["pointerdown", "touchstart", "keydown"].forEach(type => {
+      document.addEventListener(type, enableAudioAfterInteraction, {once:true, capture:true, passive:true});
+    });
+  }, {once:true});
+
+  video.addEventListener("ended", () => {
+    seekToStart();
+    const playback = video.play();
+    if (playback && typeof playback.catch === "function") playback.catch(() => {});
+  });
+
+  if (video.readyState >= 1) {
+    seekToStart();
+    tryAudibleAutoplay();
+    ["pointerdown", "touchstart", "keydown"].forEach(type => {
+      document.addEventListener(type, enableAudioAfterInteraction, {once:true, capture:true, passive:true});
+    });
+  }
+})();
+</script>
+
+
+<style id="qamqor-physical-button-probe">
+/* Invisible calibration point only. The visible button is a textured mesh inside the GLB. */
+.hero#top .qamqor-phone-model .qamqor-button-probe {
+  display:block;
+  width:1px;
+  height:1px;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+</style>
+<script src="https://raw.githubusercontent.com/jjjjjjjjjjjjjjae-hub/QamqorPhone/main/duo-request.js?v=20261109-inner-screen-fallback"></script>
+
+
+
+
+<style id="qamqor-crisp-logo-and-attached-screen">
+/* Crisp brand mark: preserve the actual uploaded artwork without filters or blur. */
+.site-header .mark,
+header .mark{
+  width:52px!important;
+  height:52px!important;
+  flex:0 0 52px!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:3px!important;
+  overflow:hidden!important;
+  border:1px solid rgba(255,255,255,.16)!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+.site-header .mark img,
+header .mark img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  image-rendering:auto!important;
+  filter:none!important;
+  transform:none!important;
+}
+.site-header .brand,
+header .brand{gap:13px!important}
+@media(max-width:620px){
+  .site-header .mark,header .mark{
+    width:46px!important;height:46px!important;flex-basis:46px!important;
+  }
+}
+
+/* Remove frosted-glass blur and decorative gaussian glow throughout the page. */
+*,*::before,*::after{
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+.art:before,.art:after,.art-glow,.service-card:before{
+  filter:none!important;
+}
+
+/* The form is a transparent projection on the real Duo display, not a second card. */
+.qamqor-phone-form-overlay{
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  touch-action:pan-y!important;
+  cursor:grab!important;
+}
+.qamqor-phone-form-overlay:active{cursor:grabbing!important}
+.qamqor-phone-form-content{
+  background:transparent!important;
+  background-color:transparent!important;
+  touch-action:pan-y!important;
+}
+.qamqor-phone-form-close{
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  text-shadow:none!important;
+}
+#repair.qamqor-phone-form-card{
+  touch-action:pan-y!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+#repair.qamqor-phone-form-card input,
+#repair.qamqor-phone-form-card select,
+#repair.qamqor-phone-form-card textarea{
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  background:rgba(13,20,30,.90)!important;
+  box-shadow:none!important;
+}
+#repair.qamqor-phone-form-card input:focus,
+#repair.qamqor-phone-form-card select:focus,
+#repair.qamqor-phone-form-card textarea:focus{
+  background:rgba(20,35,53,.98)!important;
+}
+</style>
+
+<style id="qamqor-lock-screen-click-target">
+/* Invisible hit target is projected onto the real outer display; no floating card. */
+#qamqor-lock-click-plane[hidden]{display:none!important}
+#qamqor-lock-click-plane{
+  position:fixed!important;left:0!important;top:0!important;
+  z-index:19999!important;overflow:hidden!important;
+  pointer-events:none!important;background:transparent!important;
+  border:0!important;box-shadow:none!important;
+  transform-origin:0 0!important;will-change:transform,width,height;
+}
+#qamqor-lock-click-button{
+  position:absolute!important;left:8%!important;top:72%!important;
+  width:84%!important;height:17%!important;min-height:34px!important;
+  margin:0!important;padding:0!important;border:0!important;border-radius:999px!important;
+  opacity:0!important;background:transparent!important;color:transparent!important;
+  box-shadow:none!important;pointer-events:auto!important;cursor:pointer!important;
+  touch-action:manipulation!important;-webkit-tap-highlight-color:transparent!important;
+}
+</style>
+
+
+
+
 </body>
 </html>
