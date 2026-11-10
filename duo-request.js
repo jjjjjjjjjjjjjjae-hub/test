@@ -352,49 +352,61 @@
 
     const duration = Number(viewer.duration) || 2;
     const closedTime = getClosedTime();
-    const startTime = direction < 0 ? closedTime : 0.001;
+    const from = direction < 0 ? closedTime : 0.001;
     const destination = direction < 0 ? 0 : closedTime;
 
-    viewer.animationName = undefined;
+    // Do not use a negative model-viewer timeScale here. Reverse playback is
+    // unreliable in model-viewer 4.1+ on some browsers. Scrub the real GLB
+    // animation timeline with positive-time requestAnimationFrame updates.
+    viewer.pause();
+    viewer.animationName = ANIMATION;
     if (viewer.updateComplete?.then) await viewer.updateComplete;
     await nextFrame();
-    viewer.pause();
-    viewer.detachAnimation(ANIMATION, {fade: false});
+
+    viewer.timeScale = 1;
+    viewer.currentTime = from;
     await nextFrame();
+    viewer.pause();
 
     return new Promise(resolve => {
+      let startAt = 0;
+      let frame = 0;
       let settled = false;
-      let fallbackTimer = 0;
+      const travelMs = Math.max(450, duration * 1000);
 
-      const finish = () => {
+      const finish = success => {
         if (settled) return;
         settled = true;
-        if (fallbackTimer) clearTimeout(fallbackTimer);
-        viewer.removeEventListener("finished", finish);
+        if (frame) cancelAnimationFrame(frame);
         viewer.pause();
         viewer.timeScale = 1;
+        viewer.currentTime = destination;
         requestAnimationFrame(() => {
-          const actual = Number(viewer.currentTime) || 0;
-          resolve(Math.abs(actual - destination) < 0.12);
+          viewer.pause();
+          const actual = Number(viewer.currentTime);
+          resolve(success && Number.isFinite(actual) &&
+            Math.abs(actual - destination) < 0.12);
         });
       };
 
-      viewer.addEventListener("finished", finish, {once: true});
-      try {
-        viewer.appendAnimation(ANIMATION, {
-          repetitions: 1,
-          timeScale: direction,
-          time: startTime,
-          fade: false,
-          warp: false
-        });
-        fallbackTimer = setTimeout(
-          finish, Math.ceil(duration * 1000) + 2200
-        );
-      } catch (error) {
-        viewer.removeEventListener("finished", finish);
-        resolve(false);
-      }
+      const easeInOut = t => t < 0.5
+        ? 4 * t * t * t
+        : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+      const animateFrame = now => {
+        if (!startAt) startAt = now;
+        const progress = Math.min(1, (now - startAt) / travelMs);
+        const eased = easeInOut(progress);
+        viewer.currentTime = from + (destination - from) * eased;
+
+        if (progress < 1) {
+          frame = requestAnimationFrame(animateFrame);
+        } else {
+          finish(true);
+        }
+      };
+
+      frame = requestAnimationFrame(animateFrame);
     });
   }
 
